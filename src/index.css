@@ -1,0 +1,132 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #2F75FF;
+  --color-sidebar: #222d3e;
+  --color-sidebar-bg: #1c2431;
+  --color-bg-light: #f5f7fb;
+  --color-text-dark: #334155;
+  --color-text-light: #64748b;
+  --color-border-subtle: #e2e8f0;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background-color: var(--color-bg-light);
+  color: var(--color-text-dark);
+}
+
+/* ==============================================================
+   PRINTER & PDF EXPORT OPTIMIZATIONS (A4 EXACT SINGLE-PAGE FIT)
+   ============================================================== */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 4mm 6mm;
+  }
+
+  /* CRITICAL: HIDE ENTIRE DASHBOARD ROOT APPLICATION WHEN PRINTING REPORT OR RECEIPT */
+  body.report-print-mode > #root,
+  body.receipt-print-mode > #root,
+  body:has(#printable-diagnostic-report) > #root,
+  body:has(#printable-billing-receipt) > #root {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    max-height: 0 !important;
+    overflow: hidden !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  html, body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  /* Hide app navigation, toolbars, buttons, close controls, and print-hidden elements */
+  nav, aside, header, .print\:hidden, [class*="print:hidden"] {
+    display: none !important;
+  }
+
+  /* Force background colors, borders, and svg graphics to print */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Portal containers */
+  #report-print-portal,
+  #receipt-print-portal {
+    display: block !important;
+    position: static !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #ffffff !important;
+  }
+
+  /* Backdrop wrapper resets in print */
+  .print-modal-backdrop {
+    position: static !important;
+    background: transparent !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+    display: block !important;
+    overflow: visible !important;
+  }
+
+  .print-modal-card {
+    border: none !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  /* Single A4 Page Container for Diagnostic Report */
+  #printable-diagnostic-report {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    border: none !important;
+    box-shadow: none !important;
+    margin: 0 auto !important;
+    padding: 2mm 3mm !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 282mm !important; /* Exact printable height inside A4 */
+    max-height: 282mm !important;
+    box-sizing: border-box !important;
+    page-break-after: avoid !important;
+    page-break-inside: avoid !important;
+    page-break-before: avoid !important;
+  }
+
+  /* Billing receipt print */
+  #printable-billing-receipt {
+    border: none !important;
+    box-shadow: none !important;
+    margin: 0 auto !important;
+    padding: 4mm 6mm !important;
+    width: 100% !important;
+    max-width: 180mm !important;
+    box-sizing: border-box !important;
+    page-break-after: avoid !important;
+    page-break-inside: avoid !important;
+  }
+}
