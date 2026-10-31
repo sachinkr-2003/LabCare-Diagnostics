@@ -96,28 +96,24 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="flex flex-col xl:flex-row gap-6 font-sans">
+    <div className="flex flex-col xl:flex-row gap-5 font-sans animate-fade-in-up">
       {/* Left/Center Main Column */}
-      <div className="flex-1 space-y-6">
+      <div className="flex-1 space-y-5">
         
         {/* Page Title & Status Header */}
-        <div className="border-b border-slate-300 pb-3.5 flex flex-wrap justify-between items-center gap-3">
+        <div className="flex flex-wrap justify-between items-center gap-3">
           <div>
-            <h2 className="text-2xl font-black text-slate-900 uppercase tracking-tight">
-              Dashboard Overview
-            </h2>
-            <p className="text-slate-500 font-medium text-xs uppercase tracking-wide mt-0.5">
-              Live Laboratory Metrics & Diagnostic Activity
-            </p>
+            <h2 className="text-xl sm:text-2xl font-black tracking-tight" style={{ background: 'linear-gradient(135deg, #0f172a 0%, #1e40af 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Dashboard Overview</h2>
+            <p className="text-slate-400 font-medium text-xs uppercase tracking-wide mt-0.5">Live Laboratory Metrics</p>
           </div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-emerald-50 border border-emerald-300 text-emerald-800 text-xs font-bold uppercase tracking-wider">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 text-emerald-700 text-xs font-bold uppercase tracking-wider rounded-full border border-emerald-200/80 shadow-sm" style={{ background: 'linear-gradient(135deg, #f0fdf4, #dcfce7)' }}>
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
             <span>Lab System Online</span>
           </div>
         </div>
 
         {/* Executive Metric Cards */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 stagger-children">
           <MetricCard 
             title="Total Patients" 
             value={loading ? '...' : String(stats.totalPatients)} 
@@ -156,12 +152,12 @@ export default function Dashboard() {
           />
         </div>
 
-        {/* Quick Actions (Vibrant Colored Cards) */}
-        <div className="space-y-2.5">
-          <h3 className="text-xs font-black text-slate-800 uppercase tracking-wider border-b border-slate-300 pb-2">
+        {/* Quick Actions */}
+        <div className="space-y-3">
+          <h3 className="text-xs font-bold text-slate-500 uppercase tracking-widest">
             Quick Actions
           </h3>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2.5">
             <QuickActionButton 
               to="/patients" 
               title="Add Patient" 
@@ -206,8 +202,8 @@ export default function Dashboard() {
         </div>
 
         {/* Recent Reports Table */}
-        <div className="bg-white border border-slate-300 shadow-xs rounded-none">
-          <div className="px-5 py-3.5 border-b border-slate-300 flex justify-between items-center bg-slate-50">
+        <div className="bg-white rounded-2xl border border-slate-100/80 shadow-sm overflow-hidden" style={{ boxShadow: '0 4px 24px rgba(0,0,0,0.05)' }}>
+          <div className="px-5 py-3.5 border-b border-slate-100 flex justify-between items-center bg-slate-50/80">
             <div className="flex items-center gap-2">
               <Activity size={16} className="text-slate-600" />
               <h3 className="text-xs font-black text-slate-800 uppercase tracking-widest">
@@ -225,38 +221,30 @@ export default function Dashboard() {
 
           <div className="overflow-x-auto">
             <table className="w-full text-xs text-left border-collapse">
-              <thead className="bg-slate-100 text-slate-700 font-bold uppercase tracking-wider text-[11px] border-b border-slate-300">
+              <thead className="bg-slate-50 text-slate-600 font-bold uppercase tracking-wider text-[10px] border-b border-slate-100">
                 <tr>
-                  <th className="px-4 py-3 border-r border-slate-300">Order ID</th>
-                  <th className="px-4 py-3 border-r border-slate-300">Patient</th>
-                  <th className="px-4 py-3 border-r border-slate-300">Patient ID</th>
-                  <th className="px-4 py-3 border-r border-slate-300">Test Detail</th>
-                  <th className="px-4 py-3 border-r border-slate-300">Date Logged</th>
-                  <th className="px-4 py-3 border-r border-slate-300 text-center">Status</th>
-                  <th className="px-4 py-3 text-center">Action</th>
+                  <th className="px-3 py-2.5 border-r border-slate-300 whitespace-nowrap">Order ID</th>
+                  <th className="px-3 py-2.5 border-r border-slate-300">Patient</th>
+                  <th className="px-3 py-2.5 border-r border-slate-300 hidden sm:table-cell">Patient ID</th>
+                  <th className="px-3 py-2.5 border-r border-slate-300 hidden md:table-cell">Test Detail</th>
+                  <th className="px-3 py-2.5 border-r border-slate-300 hidden lg:table-cell">Date</th>
+                  <th className="px-3 py-2.5 border-r border-slate-300 text-center">Status</th>
+                  <th className="px-3 py-2.5 text-center">Action</th>
                 </tr>
               </thead>
               <tbody className="text-slate-800 font-medium">
                 {stats.recentReports && stats.recentReports.map((r) => (
-                  <tr key={r.id} className="border-b border-slate-200 hover:bg-slate-50/80 transition-colors">
-                    <td className="px-4 py-3 border-r border-slate-200 whitespace-nowrap">
+                  <tr key={r.id} className="border-b border-slate-50 hover:bg-blue-50/40 transition-colors">
+                    <td className="px-3 py-2.5 border-r border-slate-200 whitespace-nowrap">
                       <span className="font-mono text-purple-700 font-black text-xs bg-purple-50 px-2 py-0.5 border border-purple-200">
                         {r.id}
                       </span>
                     </td>
-                    <td className="px-4 py-3 border-r border-slate-200 font-bold text-slate-900 uppercase">
-                      {r.patient_name}
-                    </td>
-                    <td className="px-4 py-3 border-r border-slate-200 text-slate-600 font-mono text-[11px]">
-                      {r.patient_id}
-                    </td>
-                    <td className="px-4 py-3 border-r border-slate-200 text-slate-700 max-w-[200px] truncate" title={r.test_name}>
-                      {r.test_name || 'Standard Lab Test'}
-                    </td>
-                    <td className="px-4 py-3 border-r border-slate-200 text-slate-600 font-medium">
-                      {formatDate(r.date)}
-                    </td>
-                    <td className="px-4 py-3 border-r border-slate-200 text-center">
+                    <td className="px-3 py-2.5 border-r border-slate-200 font-bold text-slate-900 uppercase">{r.patient_name}</td>
+                    <td className="px-3 py-2.5 border-r border-slate-200 text-slate-600 font-mono text-[11px] hidden sm:table-cell">{r.patient_id}</td>
+                    <td className="px-3 py-2.5 border-r border-slate-200 text-slate-700 max-w-[160px] truncate hidden md:table-cell" title={r.test_name}>{r.test_name || 'Standard Lab Test'}</td>
+                    <td className="px-3 py-2.5 border-r border-slate-200 text-slate-600 font-medium hidden lg:table-cell">{formatDate(r.date)}</td>
+                    <td className="px-3 py-2.5 border-r border-slate-200 text-center">
                       {r.status === 'Completed' ? (
                         <span className="px-2.5 py-0.5 bg-emerald-50 border border-emerald-300 text-emerald-800 text-[10px] font-bold uppercase tracking-wider">
                           Completed
@@ -267,7 +255,7 @@ export default function Dashboard() {
                         </span>
                       )}
                     </td>
-                    <td className="px-4 py-3 text-center">
+                    <td className="px-3 py-2.5 text-center">
                       {r.status === 'Completed' ? (
                         <button 
                           type="button"
@@ -303,17 +291,17 @@ export default function Dashboard() {
       </div>
 
       {/* Right Sidebar Column */}
-      <div className="w-full xl:w-[320px] space-y-5">
+      <div className="w-full xl:w-[300px] space-y-4">
         
         {/* Quick Search Card */}
-        <div className="bg-white border border-slate-300 p-5 shadow-xs rounded-none">
+        <div className="bg-white rounded-2xl border border-slate-100/80 p-5 shadow-sm" style={{ boxShadow: '0 4px 24px rgba(0,0,0,0.05)' }}>
           <h3 className="text-xs font-black text-slate-800 mb-2 uppercase tracking-wider">
             Quick Patient Search
           </h3>
           <p className="text-[11px] text-slate-500 mb-3">
             Search by Patient Name, ID, or Mobile number:
           </p>
-          <form onSubmit={handleQuickSearch} className="flex border-2 border-slate-700 rounded-none overflow-hidden focus-within:border-blue-600">
+          <form onSubmit={handleQuickSearch} className="flex border-2 border-slate-200 rounded-xl overflow-hidden focus-within:border-blue-500 transition-colors">
             <input 
               type="text" 
               value={quickSearch}
@@ -323,7 +311,7 @@ export default function Dashboard() {
             />
             <button 
               type="submit" 
-              className="bg-slate-900 text-white px-3.5 flex items-center hover:bg-blue-600 transition-colors cursor-pointer"
+              className="bg-blue-600 text-white px-3.5 flex items-center hover:bg-blue-700 transition-colors cursor-pointer"
               title="Search"
             >
               <Search size={15} />
@@ -332,8 +320,8 @@ export default function Dashboard() {
         </div>
 
         {/* Recent Registered Patients */}
-        <div className="bg-white border border-slate-300 shadow-xs rounded-none">
-          <div className="px-5 py-3.5 border-b border-slate-300 flex justify-between items-center bg-slate-50">
+        <div className="bg-white rounded-2xl border border-slate-100/80 shadow-sm overflow-hidden" style={{ boxShadow: '0 4px 24px rgba(0,0,0,0.05)' }}>
+          <div className="px-5 py-3.5 border-b border-slate-100 flex justify-between items-center bg-slate-50/80">
             <h3 className="text-xs font-black text-slate-800 uppercase tracking-widest">
               Registered Patients
             </h3>
@@ -346,16 +334,16 @@ export default function Dashboard() {
             </Link>
           </div>
 
-          <div className="divide-y divide-slate-200">
+          <div className="divide-y divide-slate-50">
             {recentPatients.map((p) => {
               const initials = p.name ? p.name.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase() : 'PT';
               return (
                 <div 
                   key={p.id} 
                   onClick={() => navigate('/patients')} 
-                  className="p-3.5 flex items-center gap-3 hover:bg-blue-50/50 cursor-pointer transition-colors group"
+                  className="p-3.5 flex items-center gap-3 hover:bg-blue-50/60 cursor-pointer transition-colors group"
                 >
-                  <div className="w-10 h-10 flex items-center justify-center bg-slate-900 text-white font-black text-xs border border-slate-700 shrink-0 group-hover:bg-blue-600 transition-colors">
+                  <div className="w-9 h-9 rounded-xl flex items-center justify-center bg-gradient-to-br from-slate-700 to-slate-900 text-white font-black text-xs shrink-0 group-hover:from-blue-600 group-hover:to-blue-700 transition-all">
                     {initials}
                   </div>
                   <div className="flex-1 min-w-0">
@@ -367,7 +355,7 @@ export default function Dashboard() {
                     </p>
                   </div>
                   <div className="text-right shrink-0">
-                    <span className="text-[11px] font-bold bg-slate-100 px-2 py-0.5 border border-slate-300 text-slate-700">
+                    <span className="text-[10px] font-bold bg-slate-100 px-2 py-0.5 rounded-full text-slate-600">
                       {p.age}Y
                     </span>
                   </div>

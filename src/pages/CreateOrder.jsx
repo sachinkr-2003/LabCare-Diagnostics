@@ -331,17 +331,13 @@ export default function CreateOrder() {
   );
 
   return (
-    <div className="space-y-4 max-w-6xl mx-auto">
-      <div className="flex justify-between items-center border-b border-slate-400 pb-3">
+    <div className="space-y-4 max-w-6xl mx-auto animate-fade-in-up">
+      <div className="flex flex-wrap justify-between items-center pb-3 gap-2">
         <div>
-          <h2 className="text-[20px] font-bold text-slate-800 uppercase tracking-tight">Create Order (Billing)</h2>
-          <p className="text-slate-600 text-[11px] uppercase tracking-wider mt-0.5">Register patient order and add tests with fast search</p>
+          <h2 className="text-lg sm:text-2xl font-black tracking-tight" style={{ background: 'linear-gradient(135deg, #0f172a 0%, #059669 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Create Order (Billing)</h2>
+          <p className="text-slate-400 text-[11px] uppercase tracking-wider mt-0.5">Register patient order and add tests</p>
         </div>
-        <button 
-          onClick={handleGenerateBill} 
-          disabled={submitting}
-          className="bg-emerald-600 text-white px-5 py-2 text-[12px] font-bold uppercase tracking-wider border border-emerald-800 rounded-none hover:bg-emerald-700 flex items-center gap-2 transition-colors disabled:opacity-50"
-        >
+        <button onClick={handleGenerateBill} disabled={submitting} className="bg-emerald-600 text-white px-4 py-2 text-[12px] font-bold uppercase rounded-lg border border-emerald-700 hover:bg-emerald-700 flex items-center gap-2 transition-colors disabled:opacity-50 shadow-md shadow-emerald-500/20">
           <Receipt size={14} /> {submitting ? 'Generating...' : 'Generate Bill'}
         </button>
       </div>
@@ -349,7 +345,7 @@ export default function CreateOrder() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
         {/* Left Side: Patient Details */}
         <div className="lg:col-span-4 space-y-4">
-           <div className="bg-white border border-slate-400 p-4">
+           <div className="bg-white rounded-2xl border border-slate-100 p-4 shadow-sm">
               <h3 className="text-[13px] font-bold uppercase tracking-wider text-slate-800 border-b border-slate-300 pb-2 mb-3">
                 Patient Information
               </h3>
@@ -485,7 +481,7 @@ export default function CreateOrder() {
 
         {/* Right Side: Multiple Tests Selection */}
         <div className="lg:col-span-8 flex flex-col gap-4">
-           <div className="bg-white border border-slate-400 flex-1 flex flex-col">
+           <div className="bg-white rounded-2xl border border-slate-100 shadow-sm flex-1 flex flex-col overflow-hidden">
               
               {/* Top Bar with Add More Button */}
               <div className="p-3 border-b border-slate-400 bg-slate-100 flex justify-between items-center">
@@ -591,57 +587,61 @@ export default function CreateOrder() {
 
               {/* Tests Table */}
               <div className="flex-1 overflow-x-auto p-4 bg-white min-h-[200px]">
-                 <table className="w-full text-[12px] text-left border-collapse bg-white">
-                    <thead className="bg-slate-200 text-slate-800 font-bold uppercase tracking-wider text-[10px]">
-                      <tr>
-                        <th className="px-3 py-2 border border-slate-400 w-12 text-center">S.No</th>
-                        <th className="px-3 py-2 border border-slate-400">Selected Test Name</th>
-                        <th className="px-3 py-2 border border-slate-400 w-32 text-right">Fixed Rate (₹)</th>
-                        <th className="px-3 py-2 border border-slate-400 w-16 text-center">Action</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {selectedTests.map((t, index) => (
-                        <tr key={t.id} className="hover:bg-blue-50/50">
-                          <td className="px-3 py-2 border border-slate-400 text-center font-bold text-slate-500">{index + 1}</td>
-                          <td className="p-2 border border-slate-400">
-                             <div className="font-black text-slate-900 text-xs uppercase">{t.name || 'Select Test'}</div>
-                             {t.category && <span className="text-[10px] text-slate-500 uppercase font-semibold">{t.category}</span>}
-                          </td>
-                          <td className="p-1 border border-slate-400 bg-emerald-50/30 text-center">
-                             <div className="flex items-center gap-1 px-1">
-                               <input 
-                                 type="text" 
-                                 value={t.observedValue || ''} 
-                                 onChange={(e) => updateTestResult(t.id, e.target.value)}
-                                 placeholder="मान डालें (e.g. 120)" 
-                                 className="flex-1 bg-white border-2 border-emerald-500 focus:border-emerald-700 p-1.5 text-center font-black text-slate-900 text-xs outline-none" 
-                               />
-                               {t.unit && <span className="text-[10px] font-bold text-slate-600 shrink-0 font-mono">{t.unit}</span>}
-                             </div>
-                          </td>
-                          <td className="px-2 py-2 border border-slate-400 text-center text-slate-600 font-mono text-[10.5px]">
-                             {t.normalRange || (t.parameters && t.parameters[0]?.normal_text) || 'Standard'}
-                          </td>
-                          <td className="px-3 py-2 border border-slate-400 text-right font-black text-slate-800 bg-slate-50 font-mono">
-                            ₹{t.price > 0 ? Number(t.price).toFixed(2) : '0.00'}
-                          </td>
-                          <td className="px-2 py-2 border border-slate-400 text-center">
-                            <button onClick={() => removeTestLine(t.id)} className="text-red-500 hover:text-red-700 p-1 cursor-pointer" title="Remove Test">
-                               <Trash2 size={15} />
-                            </button>
-                          </td>
-                        </tr>
-                      ))}
-                      {selectedTests.length === 0 && (
-                        <tr>
-                          <td colSpan="4" className="p-8 text-center text-slate-500 text-[12px] uppercase tracking-wider border border-slate-400 bg-slate-50">
-                            No tests assigned yet. Search above by name to add tests to this order.
-                          </td>
-                        </tr>
-                      )}
-                    </tbody>
-                 </table>
+                 <table className="w-full min-w-[560px] text-[12px] text-left border-collapse bg-white">
+                     <thead className="bg-slate-50 text-slate-700 font-bold uppercase tracking-wider text-[10.5px] border-b border-slate-200">
+                       <tr>
+                         <th className="px-3 py-2.5 border-r border-slate-200 w-10 text-center">#</th>
+                         <th className="px-3 py-2.5 border-r border-slate-200">Test / Check Name</th>
+                         <th className="px-3 py-2.5 border-r border-slate-200 w-44 text-center bg-emerald-50/80 text-emerald-900 font-black">
+                           Observed Value
+                         </th>
+                         <th className="px-3 py-2.5 border-r border-slate-200 w-28 text-center text-slate-600">Unit & Limit</th>
+                         <th className="px-3 py-2.5 border-r border-slate-200 w-24 text-right">Rate (₹)</th>
+                         <th className="px-3 py-2.5 text-center w-12">Action</th>
+                       </tr>
+                     </thead>
+                     <tbody>
+                       {selectedTests.map((t, index) => (
+                         <tr key={t.id} className="hover:bg-blue-50/50 border-b border-slate-100">
+                           <td className="px-3 py-2 border-r border-slate-100 text-center font-bold text-slate-500">{index + 1}</td>
+                           <td className="p-2 border-r border-slate-100">
+                              <div className="font-black text-slate-900 text-xs uppercase">{t.name || 'Select Test'}</div>
+                              {t.category && <span className="text-[10px] text-slate-500 uppercase font-semibold">{t.category}</span>}
+                           </td>
+                           <td className="p-1 border-r border-slate-100 bg-emerald-50/30 text-center">
+                              <div className="flex items-center gap-1 px-1">
+                                <input 
+                                  type="text" 
+                                  value={t.observedValue || ''} 
+                                  onChange={(e) => updateTestResult(t.id, e.target.value)}
+                                  placeholder="0.0" 
+                                  className="flex-1 bg-white border border-slate-300 focus:border-emerald-600 focus:ring-1 focus:ring-emerald-600 p-1.5 text-center font-black text-slate-900 text-xs outline-none rounded-md" 
+                                />
+                                {t.unit && <span className="text-[10px] font-bold text-slate-600 shrink-0 font-mono">{t.unit}</span>}
+                              </div>
+                           </td>
+                           <td className="px-2 py-2 border-r border-slate-100 text-center text-slate-600 font-mono text-[10.5px]">
+                              {t.normalRange || (t.parameters && t.parameters[0]?.normal_text) || 'Standard'}
+                           </td>
+                           <td className="px-3 py-2 border-r border-slate-100 text-right font-black text-slate-800 bg-slate-50 font-mono">
+                             ₹{t.price > 0 ? Number(t.price).toFixed(2) : '0.00'}
+                           </td>
+                           <td className="px-2 py-2 text-center">
+                             <button onClick={() => removeTestLine(t.id)} className="text-slate-400 hover:text-red-600 p-1 cursor-pointer transition-colors" title="Remove Test">
+                                <Trash2 size={15} />
+                             </button>
+                           </td>
+                         </tr>
+                       ))}
+                       {selectedTests.length === 0 && (
+                         <tr>
+                           <td colSpan="6" className="p-8 text-center text-slate-400 text-[12px] uppercase tracking-wider bg-slate-50 font-medium">
+                             No tests assigned yet. Search above by name to add tests to this order.
+                           </td>
+                         </tr>
+                       )}
+                     </tbody>
+                  </table>
               </div>
 
               {/* Billing Summary Footer */}

@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { 
-  FlaskConical, 
-  Lock, 
-  User, 
-  ArrowRight, 
-  ShieldCheck, 
-  Eye, 
-  EyeOff, 
-  CheckCircle2, 
-  Activity, 
-  Database 
+import {
+  FlaskConical,
+  Lock,
+  User,
+  ArrowRight,
+  ShieldCheck,
+  Eye,
+  EyeOff,
+  CheckCircle2,
+  Activity,
+  Database,
+  Zap
 } from 'lucide-react';
 import Swal from 'sweetalert2';
 import { authApi } from '../services/api';
@@ -39,7 +40,7 @@ export default function Login() {
     try {
       setLoading(true);
       const res = await authApi.login({ username, password });
-      
+
       localStorage.setItem('lms_token', res.token);
       localStorage.setItem('lms_user', JSON.stringify(res.user));
 
@@ -65,199 +66,195 @@ export default function Login() {
     }
   };
 
+  const features = [
+    { icon: <CheckCircle2 size={16} className="text-emerald-400 shrink-0" />, title: 'Instant Bill Slips', desc: 'Auto patient receipts' },
+    { icon: <CheckCircle2 size={16} className="text-blue-400 shrink-0" />, title: 'Bio-Range Analysis', desc: 'High/Low auto flags' },
+    { icon: <Database size={16} className="text-purple-400 shrink-0" />, title: '1-Click DB Backup', desc: 'SQLite & Excel CSV' },
+    { icon: <ShieldCheck size={16} className="text-amber-400 shrink-0" />, title: 'Role Security', desc: '256-bit encrypted data' },
+  ];
+
   return (
-    <div className="h-screen w-full flex flex-col lg:flex-row bg-slate-950 font-sans overflow-hidden select-none">
-      
-      {/* LEFT SIDE: Visual Showcase (Large, Crisp & Modern) */}
-      <div className="relative lg:w-7/12 h-full flex flex-col justify-between p-8 sm:p-10 lg:p-12 overflow-hidden">
-        {/* Background Image */}
-        <img 
-          src={labBanner} 
-          alt="Laboratory Diagnostics" 
-          className="absolute inset-0 w-full h-full object-cover object-center filter brightness-90"
+    <div className="h-screen w-full flex flex-col lg:flex-row overflow-hidden select-none" style={{ background: '#060d1a' }}>
+
+      {/* LEFT SIDE */}
+      <div className="relative lg:w-7/12 h-48 lg:h-full flex flex-col justify-between p-6 sm:p-8 lg:p-12 overflow-hidden">
+        <img
+          src={labBanner}
+          alt="Laboratory Diagnostics"
+          className="absolute inset-0 w-full h-full object-cover object-center"
+          style={{ filter: 'brightness(0.55) saturate(1.1)' }}
         />
 
-        {/* Contrast Gradient Overlays */}
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/75 to-slate-900/40" />
-        <div className="absolute inset-0 bg-blue-950/30 mix-blend-multiply" />
+        {/* Gradient overlays */}
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, #060d1a 0%, rgba(6,13,26,0.7) 50%, rgba(6,13,26,0.3) 100%)' }} />
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, rgba(29,78,216,0.25) 0%, transparent 60%)' }} />
 
-        {/* Top Header Branding on Image */}
-        <div className="relative z-10 flex items-center gap-3.5">
-          <div className="w-12 h-12 bg-blue-600 text-white flex items-center justify-center border-2 border-blue-400 shadow-xl">
-            <FlaskConical size={26} />
+        {/* Decorative circles */}
+        <div className="absolute top-1/4 right-1/4 w-64 h-64 rounded-full opacity-10 animate-spin-slow" style={{ background: 'radial-gradient(circle, #3b82f6, transparent)', filter: 'blur(40px)' }} />
+
+        {/* Top Header */}
+        <div className="relative z-10 flex items-center gap-3">
+          <div className="w-11 h-11 bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center rounded-xl shadow-xl shadow-blue-500/30 border border-blue-400/30">
+            <FlaskConical size={24} className="text-white" />
           </div>
           <div>
-            <h2 className="text-xl sm:text-2xl font-black uppercase tracking-tight text-white flex items-center gap-2">
+            <h2 className="text-lg sm:text-xl font-black uppercase tracking-tight text-white">
               LabCare <span className="text-blue-400">Diagnostics</span>
             </h2>
-            <p className="text-xs text-slate-300 uppercase tracking-widest font-semibold">
+            <p className="text-[10px] text-slate-300 uppercase tracking-widest font-semibold">
               Research Centre & Pathology Management
             </p>
           </div>
         </div>
 
-        {/* Middle Content: Taglines & Sleek Feature Grid */}
-        <div className="relative z-10 my-auto py-4 max-w-xl space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-blue-500/20 border border-blue-400/40 text-blue-300 text-xs font-bold uppercase tracking-wider backdrop-blur-xs">
-            <Activity size={15} className="text-blue-400 animate-pulse" />
+        {/* Middle Content */}
+        <div className="relative z-10 hidden lg:block my-auto py-4 max-w-xl space-y-5">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-blue-400/30 text-blue-300 text-xs font-bold uppercase tracking-wider" style={{ background: 'rgba(59,130,246,0.12)', backdropFilter: 'blur(8px)' }}>
+            <Activity size={13} className="text-blue-400 animate-pulse" />
             Clinical Excellence & Diagnostics
           </div>
 
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-tight uppercase tracking-tight">
+          <h1 className="text-4xl lg:text-5xl font-black text-white leading-tight uppercase tracking-tight">
             Precision Testing. <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-teal-300 to-indigo-300">
+            <span className="bg-gradient-to-r from-blue-400 via-cyan-300 to-indigo-300 bg-clip-text text-transparent">
               Trusted Results.
             </span>
           </h1>
 
-          <p className="text-sm sm:text-base text-slate-200 font-normal leading-relaxed">
+          <p className="text-sm text-slate-300 leading-relaxed max-w-md">
             Enterprise pathology laboratory information system with automated bio-range evaluation, instant billing receipts, and secure clinical records.
           </p>
 
-          {/* Feature Grid with Bigger, Clearer Typography */}
-          <div className="grid grid-cols-2 gap-3 pt-2 text-xs">
-            <div className="bg-slate-900/85 border border-slate-700/80 p-3 backdrop-blur-xs flex items-center gap-2.5">
-              <CheckCircle2 size={18} className="text-emerald-400 shrink-0" />
-              <div>
-                <p className="font-bold text-white uppercase text-xs">Instant Bill Slips</p>
-                <p className="text-slate-300 text-[11px] mt-0.5">Auto patient receipts</p>
+          <div className="grid grid-cols-2 gap-3 pt-1">
+            {features.map((f, i) => (
+              <div
+                key={i}
+                className="p-3 flex items-center gap-2.5 rounded-xl border border-white/8 transition-all hover:border-white/15"
+                style={{ background: 'rgba(15,23,42,0.7)', backdropFilter: 'blur(8px)' }}
+              >
+                {f.icon}
+                <div>
+                  <p className="font-bold text-white text-xs uppercase">{f.title}</p>
+                  <p className="text-slate-400 text-[10px] mt-0.5">{f.desc}</p>
+                </div>
               </div>
-            </div>
-
-            <div className="bg-slate-900/85 border border-slate-700/80 p-3 backdrop-blur-xs flex items-center gap-2.5">
-              <CheckCircle2 size={18} className="text-blue-400 shrink-0" />
-              <div>
-                <p className="font-bold text-white uppercase text-xs">Bio-Range Analysis</p>
-                <p className="text-slate-300 text-[11px] mt-0.5">High/Low auto flags</p>
-              </div>
-            </div>
-
-            <div className="bg-slate-900/85 border border-slate-700/80 p-3 backdrop-blur-xs flex items-center gap-2.5">
-              <Database size={18} className="text-purple-400 shrink-0" />
-              <div>
-                <p className="font-bold text-white uppercase text-xs">1-Click DB Backup</p>
-                <p className="text-slate-300 text-[11px] mt-0.5">SQLite & Excel CSV</p>
-              </div>
-            </div>
-
-            <div className="bg-slate-900/85 border border-slate-700/80 p-3 backdrop-blur-xs flex items-center gap-2.5">
-              <ShieldCheck size={18} className="text-amber-400 shrink-0" />
-              <div>
-                <p className="font-bold text-white uppercase text-xs">Role Security</p>
-                <p className="text-slate-300 text-[11px] mt-0.5">256-bit encrypted data</p>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
 
         {/* Bottom Status */}
-        <div className="relative z-10 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400">
+        <div className="relative z-10 hidden lg:flex pt-3 border-t border-white/10 items-center justify-between text-xs text-slate-400">
           <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping" />
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
             <span className="font-bold text-slate-200 uppercase tracking-wider text-xs">System Operational</span>
           </div>
-          <div className="font-mono text-xs text-slate-300">
-            ISO 15189:2022 • NABL Standards
-          </div>
+          <div className="font-mono text-xs text-slate-400">ISO 15189:2022 • NABL Standards</div>
         </div>
       </div>
 
-      {/* RIGHT SIDE: Authentication Panel (Readable, Bold, Professional) */}
-      <div className="lg:w-5/12 h-full bg-slate-900 flex flex-col justify-between p-8 sm:p-10 lg:p-12 border-t lg:border-t-0 lg:border-l-2 border-slate-800 overflow-hidden">
-        
+      {/* RIGHT SIDE: Auth Panel */}
+      <div
+        className="lg:w-5/12 flex-1 flex flex-col justify-between p-6 sm:p-8 lg:p-12 overflow-auto"
+        style={{
+          background: 'linear-gradient(180deg, #0d1526 0%, #0f172a 50%, #0a1020 100%)',
+          borderLeft: '1px solid rgba(255,255,255,0.06)'
+        }}
+      >
         {/* Top Header */}
-        <div className="space-y-1.5 max-w-md w-full mx-auto">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-blue-900/40 border border-blue-500/40 text-blue-300 text-xs font-bold uppercase tracking-widest">
-            <Lock size={13} />
+        <div className="space-y-2 max-w-md w-full mx-auto">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-blue-500/30 text-blue-300 text-[10px] font-bold uppercase tracking-widest" style={{ background: 'rgba(59,130,246,0.1)' }}>
+            <Lock size={11} />
             Restricted Staff Portal
           </div>
           <h2 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-white">
-            Sign In to Dashboard
+            Sign In to <span className="bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">Dashboard</span>
           </h2>
-          <p className="text-sm text-slate-300">
+          <p className="text-sm text-slate-400">
             Enter authorized credentials to access clinical records.
           </p>
         </div>
 
-        {/* Form Area */}
-        <form onSubmit={handleLogin} className="my-auto py-2 space-y-4 max-w-md w-full mx-auto">
+        {/* Form */}
+        <form onSubmit={handleLogin} className="my-auto py-4 space-y-4 max-w-md w-full mx-auto">
           {/* Username */}
           <div className="space-y-1.5">
-            <label className="block text-xs font-bold uppercase tracking-wider text-slate-200">
+            <label className="block text-xs font-bold uppercase tracking-wider text-slate-300">
               Staff Username / ID
             </label>
-            <div className="flex border-2 border-slate-700 bg-slate-950 focus-within:border-blue-500 transition-colors">
-              <div className="p-3 border-r border-slate-800 text-slate-400 flex items-center justify-center">
-                <User size={19} />
+            <div
+              className="flex border transition-all focus-within:border-blue-500"
+              style={{ background: 'rgba(255,255,255,0.04)', borderColor: 'rgba(255,255,255,0.1)', borderRadius: '10px' }}
+            >
+              <div className="p-3 border-r flex items-center justify-center text-slate-500" style={{ borderColor: 'rgba(255,255,255,0.08)' }}>
+                <User size={18} />
               </div>
               <input
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 placeholder="e.g. admin"
-                className="w-full p-3 text-sm text-white placeholder-slate-500 outline-none bg-transparent font-medium"
+                className="w-full p-3 text-sm text-white placeholder-slate-600 outline-none bg-transparent font-medium"
                 required
               />
             </div>
           </div>
 
-          {/* Password with Show/Hide Toggle */}
+          {/* Password */}
           <div className="space-y-1.5">
             <div className="flex justify-between items-center">
-              <label className="block text-xs font-bold uppercase tracking-wider text-slate-200">
+              <label className="block text-xs font-bold uppercase tracking-wider text-slate-300">
                 Security Password
               </label>
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="text-xs text-blue-400 hover:text-blue-300 font-bold flex items-center gap-1 cursor-pointer"
+                className="text-xs text-blue-400 hover:text-blue-300 font-bold flex items-center gap-1 cursor-pointer transition-colors"
               >
-                {showPassword ? (
-                  <>
-                    <EyeOff size={14} /> Hide
-                  </>
-                ) : (
-                  <>
-                    <Eye size={14} /> Show
-                  </>
-                )}
+                {showPassword ? <><EyeOff size={13} /> Hide</> : <><Eye size={13} /> Show</>}
               </button>
             </div>
-            <div className="flex border-2 border-slate-700 bg-slate-950 focus-within:border-blue-500 transition-colors">
-              <div className="p-3 border-r border-slate-800 text-slate-400 flex items-center justify-center">
-                <Lock size={19} />
+            <div
+              className="flex border transition-all focus-within:border-blue-500"
+              style={{ background: 'rgba(255,255,255,0.04)', borderColor: 'rgba(255,255,255,0.1)', borderRadius: '10px' }}
+            >
+              <div className="p-3 border-r flex items-center justify-center text-slate-500" style={{ borderColor: 'rgba(255,255,255,0.08)' }}>
+                <Lock size={18} />
               </div>
               <input
                 type={showPassword ? 'text' : 'password'}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter password"
-                className="w-full p-3 text-sm text-white placeholder-slate-500 outline-none bg-transparent font-medium"
+                className="w-full p-3 text-sm text-white placeholder-slate-600 outline-none bg-transparent font-medium"
                 required
               />
             </div>
           </div>
 
-          {/* Remember Me & SSL Security */}
-          <div className="flex items-center justify-between text-xs text-slate-300 pt-0.5">
+          {/* Remember Me */}
+          <div className="flex items-center justify-between text-xs text-slate-400 pt-0.5">
             <label className="flex items-center gap-2 cursor-pointer select-none">
               <input
                 type="checkbox"
                 checked={rememberMe}
                 onChange={(e) => setRememberMe(e.target.checked)}
-                className="w-4 h-4 rounded-none accent-blue-600 cursor-pointer"
+                className="w-4 h-4 accent-blue-600 cursor-pointer rounded"
               />
-              <span className="text-xs font-medium text-slate-200">Remember this terminal</span>
+              <span className="text-xs font-medium text-slate-300">Remember this terminal</span>
             </label>
-            <span className="text-xs text-slate-400 font-mono font-semibold">256-bit SSL</span>
+            <span className="text-xs text-slate-500 font-mono font-semibold flex items-center gap-1">
+              <ShieldCheck size={11} className="text-emerald-500" /> 256-bit SSL
+            </span>
           </div>
 
           {/* Sign In Button */}
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-blue-600 hover:bg-blue-500 text-white p-3.5 text-sm font-black uppercase tracking-wider border-2 border-blue-500 rounded-none flex items-center justify-center gap-2.5 transition-all cursor-pointer shadow-lg disabled:opacity-60"
+            className="w-full text-white p-3.5 text-sm font-black uppercase tracking-wider rounded-xl flex items-center justify-center gap-2.5 transition-all cursor-pointer shadow-lg disabled:opacity-60 btn-press relative overflow-hidden group"
+            style={{ background: 'linear-gradient(135deg, #2563eb 0%, #4f46e5 100%)', boxShadow: '0 4px 24px rgba(37,99,235,0.4)' }}
           >
+            <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 pointer-events-none" />
             {loading ? (
               <span className="flex items-center gap-2">
                 <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
@@ -265,20 +262,28 @@ export default function Login() {
               </span>
             ) : (
               <>
+                <Zap size={16} />
                 <span>Secure Sign In</span>
-                <ArrowRight size={17} />
+                <ArrowRight size={16} />
               </>
             )}
           </button>
+
+          {/* Quick credentials hint */}
+          <div className="text-center">
+            <p className="text-[10px] text-slate-600 font-mono">
+              Default: <span className="text-slate-400">admin</span> / <span className="text-slate-400">admin123</span>
+            </p>
+          </div>
         </form>
 
         {/* Footer */}
-        <div className="pt-3 border-t border-slate-800 text-center max-w-md w-full mx-auto space-y-1">
-          <p className="text-xs text-slate-400 uppercase tracking-widest font-semibold">
+        <div className="pt-3 border-t max-w-md w-full mx-auto space-y-1 text-center" style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
+          <p className="text-[10px] text-slate-500 uppercase tracking-widest font-semibold">
             LabCare Diagnostics • Laboratory Management System
           </p>
-          <p className="text-xs text-blue-400 font-bold tracking-wider">
-            Develop by Sachin
+          <p className="text-xs text-blue-500 font-bold tracking-wider">
+            Developed by Sachin
           </p>
         </div>
       </div>

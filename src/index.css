@@ -1,32 +1,215 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;0,14..32,800;0,14..32,900;1,14..32,400&display=swap');
 
 @theme {
   --color-primary: #2F75FF;
-  --color-sidebar: #222d3e;
-  --color-sidebar-bg: #1c2431;
-  --color-bg-light: #f5f7fb;
-  --color-text-dark: #334155;
+  --color-sidebar: #0f172a;
+  --color-sidebar-bg: #0f172a;
+  --color-bg-light: #f1f5f9;
+  --color-text-dark: #1e293b;
   --color-text-light: #64748b;
   --color-border-subtle: #e2e8f0;
 }
 
+*, *::before, *::after { box-sizing: border-box; }
+
 body {
   margin: 0;
-  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  background-color: var(--color-bg-light);
-  color: var(--color-text-dark);
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: linear-gradient(135deg, #f0f4ff 0%, #f8fafc 50%, #f0fdf4 100%);
+  background-attachment: fixed;
+  color: #1e293b;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Custom Scrollbar ── */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #94a3b8, #64748b); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: linear-gradient(180deg, #64748b, #475569); }
+
+/* ── Animations ── */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-20px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(20px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(59,130,246,0.4); }
+  50%       { box-shadow: 0 0 0 10px rgba(59,130,246,0); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-6px); }
+}
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+@keyframes count-up {
+  from { opacity: 0; transform: scale(0.8); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes gradient-shift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-fade-in-up  { animation: fadeInUp 0.45s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.animate-fade-in     { animation: fadeIn 0.3s ease both; }
+.animate-slide-left  { animation: slideInLeft 0.35s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.animate-slide-right { animation: slideInRight 0.35s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.animate-float       { animation: float 3s ease-in-out infinite; }
+.animate-spin-slow   { animation: spin-slow 8s linear infinite; }
+.animate-pulse-glow  { animation: pulse-glow 2s infinite; }
+.animate-count-up    { animation: count-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+/* Staggered children */
+.stagger-children > *:nth-child(1) { animation: fadeInUp 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.05s both; }
+.stagger-children > *:nth-child(2) { animation: fadeInUp 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.12s both; }
+.stagger-children > *:nth-child(3) { animation: fadeInUp 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.19s both; }
+.stagger-children > *:nth-child(4) { animation: fadeInUp 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.26s both; }
+.stagger-children > *:nth-child(5) { animation: fadeInUp 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.33s both; }
+
+/* ── Glassmorphism ── */
+.glass {
+  background: rgba(255,255,255,0.75);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(255,255,255,0.6);
+}
+.glass-dark {
+  background: rgba(15,23,42,0.80);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.glass-card {
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(20px) saturate(200%);
+  -webkit-backdrop-filter: blur(20px) saturate(200%);
+  border: 1px solid rgba(255,255,255,0.7);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.06), 0 1px 0 rgba(255,255,255,0.8) inset;
+}
+
+/* ── Gradient Utilities ── */
+.gradient-blue    { background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 50%, #3b82f6 100%); }
+.gradient-emerald { background: linear-gradient(135deg, #059669 0%, #10b981 100%); }
+.gradient-purple  { background: linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%); }
+.gradient-amber   { background: linear-gradient(135deg, #d97706 0%, #f59e0b 100%); }
+.gradient-dark    { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); }
+.gradient-sidebar { background: linear-gradient(180deg, #0a0f1e 0%, #0f172a 40%, #111827 70%, #0a0f1e 100%); }
+.gradient-mesh    { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+
+/* ── Card Glow Effects ── */
+.glow-blue   { box-shadow: 0 4px 24px -4px rgba(59,130,246,0.3), 0 0 0 1px rgba(59,130,246,0.1); }
+.glow-emerald{ box-shadow: 0 4px 24px -4px rgba(16,185,129,0.3), 0 0 0 1px rgba(16,185,129,0.1); }
+.glow-purple { box-shadow: 0 4px 24px -4px rgba(139,92,246,0.3), 0 0 0 1px rgba(139,92,246,0.1); }
+.glow-amber  { box-shadow: 0 4px 24px -4px rgba(245,158,11,0.3), 0 0 0 1px rgba(245,158,11,0.1); }
+
+/* ── Shimmer Loading ── */
+.shimmer {
+  background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* ── Page transition wrapper ── */
+.page-enter { animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+/* ── Sidebar Active Indicator ── */
+.nav-active-glow {
+  box-shadow: 0 4px 20px rgba(59,130,246,0.4), inset 0 1px 0 rgba(255,255,255,0.15);
+}
+
+/* ── Card hover lift ── */
+.card-hover {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease;
+}
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+}
+
+/* ── Metric card number ── */
+.metric-value {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+/* ── Status badge pulse ── */
+.status-online::before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #10b981;
+  margin-right: 6px;
+  animation: pulse-glow 2s infinite;
+}
+
+/* ── Table row hover ── */
+.table-row-hover {
+  transition: background-color 0.15s ease, transform 0.1s ease;
+}
+.table-row-hover:hover {
+  background-color: rgba(59,130,246,0.04);
+}
+
+/* ── Input focus ring ── */
+.input-focus {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.input-focus:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59,130,246,0.12);
+  outline: none;
+}
+
+/* ── Button press effect ── */
+.btn-press {
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+.btn-press:active {
+  transform: scale(0.97);
+}
+
+/* ── Sidebar gradient border ── */
+.sidebar-item-active {
+  background: linear-gradient(135deg, rgba(59,130,246,0.2) 0%, rgba(99,102,241,0.15) 100%);
+  border-left: 3px solid #3b82f6;
+  box-shadow: inset 0 0 20px rgba(59,130,246,0.08);
+}
+
+/* ── Mobile bottom safe area ── */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
 }
 
 /* ==============================================================
    PRINTER & PDF EXPORT OPTIMIZATIONS (A4 EXACT SINGLE-PAGE FIT)
    ============================================================== */
 @media print {
-  @page {
-    size: A4 portrait;
-    margin: 4mm 6mm;
-  }
+  @page { size: A4 portrait; margin: 4mm 6mm; }
 
-  /* CRITICAL: HIDE ENTIRE DASHBOARD ROOT APPLICATION WHEN PRINTING REPORT OR RECEIPT */
   body.report-print-mode > #root,
   body.receipt-print-mode > #root,
   body:has(#printable-diagnostic-report) > #root,
@@ -52,20 +235,10 @@ body {
     overflow: visible !important;
   }
 
-  /* Hide app navigation, toolbars, buttons, close controls, and print-hidden elements */
-  nav, aside, header, .print\:hidden, [class*="print:hidden"] {
-    display: none !important;
-  }
+  nav, aside, header, .print\:hidden, [class*="print:hidden"] { display: none !important; }
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
 
-  /* Force background colors, borders, and svg graphics to print */
-  * {
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
-  }
-
-  /* Portal containers */
-  #report-print-portal,
-  #receipt-print-portal {
+  #report-print-portal, #receipt-print-portal {
     display: block !important;
     position: static !important;
     width: 100% !important;
@@ -74,7 +247,6 @@ body {
     background: #ffffff !important;
   }
 
-  /* Backdrop wrapper resets in print */
   .print-modal-backdrop {
     position: static !important;
     background: transparent !important;
@@ -98,7 +270,6 @@ body {
     overflow: visible !important;
   }
 
-  /* Single A4 Page Container for Diagnostic Report */
   #printable-diagnostic-report {
     display: flex !important;
     flex-direction: column !important;
@@ -109,7 +280,7 @@ body {
     padding: 2mm 3mm !important;
     width: 100% !important;
     max-width: 100% !important;
-    height: 282mm !important; /* Exact printable height inside A4 */
+    height: 282mm !important;
     max-height: 282mm !important;
     box-sizing: border-box !important;
     page-break-after: avoid !important;
@@ -117,7 +288,6 @@ body {
     page-break-before: avoid !important;
   }
 
-  /* Billing receipt print */
   #printable-billing-receipt {
     border: none !important;
     box-shadow: none !important;

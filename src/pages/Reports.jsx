@@ -143,66 +143,49 @@ export default function Reports() {
   };
 
   return (
-    <div className="space-y-6 print:hidden">
-      <div className="flex justify-between items-center border-b border-slate-400 pb-4">
+    <div className="space-y-5 print:hidden animate-fade-in-up">
+      <div className="flex flex-wrap justify-between items-center pb-3 gap-2">
         <div>
-          <h2 className="text-[24px] font-bold text-slate-800 uppercase tracking-tight">Generated Reports</h2>
-          <p className="text-slate-600 text-[12px] uppercase tracking-wider mt-1">View, print and manage patient test reports from live database</p>
+          <h2 className="text-lg sm:text-2xl font-black text-slate-900 tracking-tight">Generated Reports</h2>
+          <p className="text-slate-400 text-[11px] uppercase tracking-wider mt-0.5">View, print and manage patient test reports</p>
         </div>
-        <button 
-          onClick={() => fetchReports(searchQuery, filterStatus)}
-          className="bg-slate-200 text-slate-700 px-3 py-2 text-[12px] font-bold uppercase tracking-wider border border-slate-400 rounded-none hover:bg-slate-300 flex items-center gap-1.5 transition-colors"
-          title="Refresh reports"
-        >
-          <RefreshCw size={14} className={loading ? 'animate-spin' : ''} /> Refresh
+        <button onClick={() => fetchReports(searchQuery, filterStatus)} className="bg-white text-slate-600 px-3 py-2 text-[12px] font-bold uppercase border border-slate-200 rounded-lg hover:bg-slate-50 flex items-center gap-1.5 transition-colors shadow-sm" title="Refresh">
+          <RefreshCw size={14} className={loading ? 'animate-spin' : ''} /> <span className="hidden sm:inline">Refresh</span>
         </button>
       </div>
 
-      <div className="bg-white border border-slate-400 rounded-none">
-        <div className="p-4 border-b border-slate-400 flex flex-col sm:flex-row gap-4 justify-between sm:items-center bg-slate-100">
-           <div className="flex flex-wrap gap-4 items-center">
-             <form onSubmit={handleSearchSubmit} className="flex items-center border border-slate-400 bg-white px-2">
-               <Search size={16} className="text-slate-400" />
-               <input 
-                 type="text" 
-                 value={searchQuery}
-                 onChange={(e) => setSearchQuery(e.target.value)}
-                 placeholder="Search by Patient ID or Name..." 
-                 className="p-2 text-[13px] outline-none w-64 bg-transparent" 
-               />
-               <button type="submit" className="text-xs uppercase font-bold text-blue-600 hover:text-blue-800 px-2">
-                 Find
-               </button>
+      <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
+        <div className="p-3 border-b border-slate-100 flex flex-col sm:flex-row gap-3 justify-between sm:items-center bg-slate-50/80">
+           <div className="flex flex-wrap gap-2 items-center">
+             <form onSubmit={handleSearchSubmit} className="flex items-center border border-slate-200 bg-white px-2 rounded-lg w-full sm:w-auto shadow-sm">
+               <Search size={16} className="text-slate-400 shrink-0" />
+               <input type="text" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="Search by Patient or Name..." className="p-2 text-[13px] outline-none w-full sm:w-52 bg-transparent" />
+               <button type="submit" className="text-xs uppercase font-bold text-blue-600 hover:text-blue-800 px-2 shrink-0">Find</button>
              </form>
-
-             <div className="flex items-center border border-slate-400 bg-white px-2 cursor-pointer hover:bg-slate-50">
-               <Filter size={16} className="text-slate-600 mr-1" />
-               <select 
-                 value={filterStatus}
-                 onChange={(e) => setFilterStatus(e.target.value)}
-                 className="p-2 text-[13px] outline-none bg-transparent cursor-pointer font-bold text-slate-700 uppercase"
-               >
+             <div className="flex items-center border border-slate-200 bg-white px-2 rounded-lg shadow-sm">
+               <Filter size={16} className="text-slate-400 mr-1" />
+               <select value={filterStatus} onChange={(e) => setFilterStatus(e.target.value)} className="p-2 text-[13px] outline-none bg-transparent cursor-pointer font-bold text-slate-700 uppercase">
                  <option value="All Status">All Status</option>
                  <option value="Completed">Completed</option>
                  <option value="Pending">Pending</option>
                </select>
              </div>
            </div>
-           <span className="text-[12px] font-bold uppercase text-slate-600 bg-slate-200 px-3 py-1 border border-slate-300">
+           <span className="text-[12px] font-bold uppercase text-slate-500 bg-slate-100 px-3 py-1 rounded-full border border-slate-200">
              Total: {reports.length} Reports
            </span>
         </div>
 
         <div className="overflow-x-auto min-h-[300px]">
           <table className="w-full text-[13px] text-left border-collapse">
-            <thead className="bg-slate-200 text-slate-800 font-bold uppercase tracking-wider text-[11px]">
+            <thead className="bg-slate-50 text-slate-600 font-bold uppercase tracking-wider text-[11px] border-b border-slate-100">
               <tr>
-                <th className="px-4 py-3 border border-slate-400 w-28">Report ID</th>
-                <th className="px-4 py-3 border border-slate-400">Patient Details</th>
-                <th className="px-4 py-3 border border-slate-400">Test(s) Ordered</th>
-                <th className="px-4 py-3 border border-slate-400 w-32">Date Logged</th>
-                <th className="px-4 py-3 border border-slate-400 text-center w-28">Status</th>
-                <th className="px-4 py-3 border border-slate-400 text-center w-40">Actions</th>
+                <th className="px-3 py-2.5 border border-slate-400">Report ID</th>
+                <th className="px-3 py-2.5 border border-slate-400">Patient</th>
+                <th className="px-3 py-2.5 border border-slate-400 hidden md:table-cell">Test(s)</th>
+                <th className="px-3 py-2.5 border border-slate-400 hidden lg:table-cell">Date</th>
+                <th className="px-3 py-2.5 border border-slate-400 text-center">Status</th>
+                <th className="px-3 py-2.5 border border-slate-400 text-center">Actions</th>
               </tr>
             </thead>
             <tbody className="text-slate-800 font-medium">
@@ -214,15 +197,15 @@ export default function Reports() {
                 </tr>
               ) : reports.map((r) => (
                 <tr key={r.id} className="hover:bg-purple-50/50 transition-colors">
-                  <td className="px-4 py-3 border border-slate-400 text-purple-700 font-bold">{r.id}</td>
-                  <td className="px-4 py-3 border border-slate-400">
-                     <p className="font-bold">{r.patient_name}</p>
+                  <td className="px-3 py-2.5 border border-slate-400 text-purple-700 font-bold text-xs">{r.id}</td>
+                  <td className="px-3 py-2.5 border border-slate-400">
+                     <p className="font-bold text-sm">{r.patient_name}</p>
                      <p className="text-[11px] text-slate-500">{r.patient_id} • {r.patient_phone || 'No phone'}</p>
-                     <p className="text-[10px] text-blue-700 font-semibold mt-0.5">Ref: {r.doctor_name || 'Self / Walk-in'}</p>
+                     <p className="text-[10px] text-blue-700 font-semibold mt-0.5 hidden sm:block">Ref: {r.doctor_name || 'Self / Walk-in'}</p>
                   </td>
-                  <td className="px-4 py-3 border border-slate-400">{r.test_name || 'Standard Profile'}</td>
-                  <td className="px-4 py-3 border border-slate-400">{formatDate(r.date)}</td>
-                  <td className="px-4 py-3 border border-slate-400 text-center">
+                  <td className="px-3 py-2.5 border border-slate-400 hidden md:table-cell text-sm">{r.test_name || 'Standard Profile'}</td>
+                  <td className="px-3 py-2.5 border border-slate-400 hidden lg:table-cell">{formatDate(r.date)}</td>
+                  <td className="px-3 py-2.5 border border-slate-400 text-center">
                     {r.status === 'Completed' ? (
                       <span className="inline-flex items-center gap-1 text-emerald-700 bg-emerald-100 border border-emerald-400 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded-none">
                         <CheckCircle size={12} /> Completed
@@ -233,8 +216,8 @@ export default function Reports() {
                       </span>
                     )}
                   </td>
-                  <td className="px-4 py-3 border border-slate-400 text-center">
-                    <div className="flex justify-center gap-1.5">
+                  <td className="px-3 py-2.5 border border-slate-400 text-center">
+                    <div className="flex justify-center gap-1 flex-wrap">
                        <button 
                          onClick={() => openReportModal(r.id)} 
                          className="bg-slate-700 text-white px-2 py-1 text-[11px] font-bold uppercase border border-slate-900 rounded-none hover:bg-slate-800 flex items-center gap-1 cursor-pointer transition-colors"

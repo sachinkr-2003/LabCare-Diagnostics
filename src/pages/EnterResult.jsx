@@ -15,6 +15,7 @@ export default function EnterResult() {
   const [orderData, setOrderData] = useState(null);
   const [resultsState, setResultsState] = useState([]);
   const [doctorName, setDoctorName] = useState('');
+  const [mobileTab, setMobileTab] = useState('form'); // 'queue' | 'form'
   const [catalogTests, setCatalogTests] = useState([]);
   const [selectedCatalogTestId, setSelectedCatalogTestId] = useState('');
 
@@ -113,6 +114,7 @@ export default function EnterResult() {
   const handleSelectOrder = (ordId) => {
     setSearchId(ordId);
     loadOrder(ordId);
+    setMobileTab('form');
   };
 
   const handleParamChange = (index, value) => {
@@ -240,21 +242,43 @@ export default function EnterResult() {
   }, {});
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-5 animate-fade-in-up">
       {/* Header */}
-      <div className="flex justify-between items-center border-b border-slate-400 pb-4">
+      <div className="flex flex-wrap justify-between items-center pb-3 gap-2">
         <div>
-          <h2 className="text-[24px] font-bold text-slate-800 uppercase tracking-tight">Enter Results</h2>
-          <p className="text-slate-600 text-[12px] uppercase tracking-wider mt-1">
-            Search Patient by Name, Mobile, or Order ID to record diagnostic parameters
-          </p>
+          <h2 className="text-lg sm:text-2xl font-black text-slate-900 tracking-tight">Enter Results</h2>
+          <p className="text-slate-400 text-[11px] uppercase tracking-wider mt-0.5">Search by Name, Mobile, or Order ID</p>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      {/* Mobile Tab Switcher (Visible only on < lg screens) */}
+      <div className="flex lg:hidden bg-slate-200/70 p-1 rounded-xl text-xs font-bold shadow-2xs">
+        <button
+          type="button"
+          onClick={() => setMobileTab('queue')}
+          className={`flex-1 py-2 text-center rounded-lg transition-all flex items-center justify-center gap-1.5 ${
+            mobileTab === 'queue' ? 'bg-white text-slate-900 shadow-sm font-black' : 'text-slate-600 hover:text-slate-900'
+          }`}
+        >
+          <Clock size={13} />
+          <span>Patient Queue ({suggestions.length})</span>
+        </button>
+        <button
+          type="button"
+          onClick={() => setMobileTab('form')}
+          className={`flex-1 py-2 text-center rounded-lg transition-all flex items-center justify-center gap-1.5 ${
+            mobileTab === 'form' ? 'bg-white text-slate-900 shadow-sm font-black' : 'text-slate-600 hover:text-slate-900'
+          }`}
+        >
+          <FileText size={13} />
+          <span>Test Form {orderData ? `(${orderData.order_id})` : ''}</span>
+        </button>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
         {/* Left Search & Patient List Panel (4 Cols) */}
-        <div className="lg:col-span-4 space-y-4">
-          <div className="bg-white border border-slate-400 p-5 shadow-none rounded-none">
+        <div className={`lg:col-span-4 space-y-4 ${mobileTab === 'queue' ? 'block' : 'hidden lg:block'}`}>
+          <div className="bg-white rounded-2xl border border-slate-100 p-5 shadow-sm">
             <h3 className="text-sm font-bold uppercase tracking-wider text-slate-800 border-b border-slate-300 pb-2 flex items-center justify-between">
               <span>Find Patient Order</span>
               <span className="text-[10px] text-purple-700 bg-purple-50 px-2 py-0.5 border border-purple-200">
@@ -317,7 +341,7 @@ export default function EnterResult() {
           </div>
 
           {/* Quick-Pick Matching Orders / Pending Queue */}
-          <div className="bg-white border border-slate-400 p-4 shadow-none rounded-none">
+          <div className="bg-white rounded-2xl border border-slate-100 p-4 shadow-sm">
             <div className="flex justify-between items-center border-b border-slate-300 pb-2 mb-3">
               <span className="text-xs font-bold uppercase tracking-wider text-slate-700">
                 {searchId.trim() ? `Search Matches (${suggestions.length})` : `Pending Orders Queue (${suggestions.length})`}
@@ -369,9 +393,9 @@ export default function EnterResult() {
         </div>
 
         {/* Right Test Results Form Panel (8 Cols) */}
-        <div className="lg:col-span-8">
+        <div className={`lg:col-span-8 ${mobileTab === 'form' ? 'block' : 'hidden lg:block'}`}>
           {!orderData ? (
-            <div className="bg-slate-50 border border-slate-300 p-12 text-center flex flex-col items-center justify-center min-h-[420px]">
+            <div className="bg-white rounded-2xl border border-slate-100 p-12 text-center flex flex-col items-center justify-center min-h-[420px] shadow-sm">
               <Clock size={48} className="text-slate-300 mb-4" />
               <h3 className="text-lg font-bold text-slate-700 uppercase tracking-widest">Select Patient Order</h3>
               <p className="text-xs text-slate-500 mt-2 max-w-md">
@@ -379,9 +403,9 @@ export default function EnterResult() {
               </p>
             </div>
           ) : (
-            <div className="bg-white border border-slate-400 space-y-6 p-5">
+            <div className="bg-white rounded-2xl border border-slate-200/80 space-y-5 p-4 sm:p-5 shadow-sm overflow-hidden">
               {/* Patient Banner */}
-              <div className="bg-slate-900 text-white p-4 border border-slate-800 flex flex-wrap justify-between items-center gap-3">
+              <div className="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-white p-4 rounded-xl border border-slate-700/80 flex flex-wrap justify-between items-center gap-3 shadow-md">
                 <div>
                   <div className="flex items-center gap-2">
                     <span className="text-base font-black uppercase text-white">{orderData.patient_name}</span>
@@ -401,7 +425,7 @@ export default function EnterResult() {
               </div>
 
               {/* Referred Doctor Edit / Review Box */}
-              <div className="bg-blue-50/70 border border-blue-300 p-3 flex flex-wrap items-center justify-between gap-3">
+              <div className="bg-blue-50/60 border border-blue-200/80 rounded-xl p-3 sm:p-3.5 flex flex-wrap items-center justify-between gap-3">
                 <div className="flex-1 min-w-[280px]">
                   <label className="block text-[11px] font-bold uppercase text-blue-900 mb-1 flex items-center gap-1.5">
                     <User size={13} className="text-blue-700" /> Referred By (Doctor Name):
@@ -411,7 +435,7 @@ export default function EnterResult() {
                     value={doctorName}
                     onChange={(e) => setDoctorName(e.target.value)}
                     list="enter-result-doctor-list"
-                    className="w-full bg-white border border-blue-300 px-3 py-1.5 text-xs font-bold text-slate-900 outline-none focus:border-blue-600 rounded-none"
+                    className="w-full bg-white border border-blue-200 px-3 py-2 text-xs font-bold text-slate-900 outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-500/20 rounded-lg"
                     placeholder="Type Doctor Name or 'Self' if came alone"
                   />
                   <datalist id="enter-result-doctor-list">
@@ -439,7 +463,7 @@ export default function EnterResult() {
 
                             {/* Investigation Tables by Test */}
               {Object.entries(groupedResults).map(([testName, params]) => (
-                <div key={testName} className="border border-slate-300">
+                <div key={testName} className="rounded-xl border border-slate-200/80 overflow-hidden bg-white shadow-2xs">
                   <div className="p-3 border-b border-slate-300 flex justify-between items-center bg-slate-100">
                     <div>
                       <h3 className="text-sm font-bold uppercase tracking-wider text-slate-900">{testName}</h3>
@@ -447,7 +471,7 @@ export default function EnterResult() {
                     </div>
                   </div>
                   <div className="overflow-x-auto">
-                    <table className="w-full text-xs text-left border-collapse">
+                    <table className="w-full min-w-[520px] text-xs text-left border-collapse">
                       <thead className="bg-slate-100 text-slate-800 font-bold uppercase tracking-wider text-[11px] border-b border-slate-300">
                         <tr>
                           <th className="px-4 py-2.5 border-r border-slate-300">Test / Parameter</th>
@@ -564,17 +588,17 @@ export default function EnterResult() {
               </div>
 
               {/* Bottom Actions Bar */}
-              <div className="p-4 bg-slate-100 border border-slate-300 flex justify-between items-center">
+              <div className="p-3.5 sm:p-4 bg-slate-50 border-t border-slate-200/80 flex flex-col sm:flex-row justify-between items-center gap-2.5">
                 <button 
                   onClick={() => navigate('/reports')} 
-                  className="bg-slate-300 text-slate-800 px-4 py-2 text-xs font-bold uppercase border border-slate-400 rounded-none hover:bg-slate-400 cursor-pointer transition-colors"
+                  className="w-full sm:w-auto bg-slate-200 hover:bg-slate-300 text-slate-700 px-4 py-2 text-xs font-bold uppercase rounded-lg transition-colors cursor-pointer text-center"
                 >
                   Back to Reports
                 </button>
                 <button 
                   onClick={handleSaveResults} 
                   disabled={saving}
-                  className="bg-emerald-600 text-white px-6 py-2.5 text-xs font-black uppercase tracking-wider border border-emerald-800 rounded-none hover:bg-emerald-700 flex items-center gap-2 transition-colors disabled:opacity-50 cursor-pointer shadow-sm"
+                  className="w-full sm:w-auto bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white px-6 py-2.5 text-xs font-black uppercase tracking-wider rounded-xl flex items-center justify-center gap-2 transition-all disabled:opacity-50 cursor-pointer shadow-md shadow-emerald-500/20 active:scale-95"
                 >
                   <Save size={16} /> {saving ? 'Saving...' : 'Save Results & Complete Order'}
                 </button>

@@ -170,44 +170,34 @@ export default function Tests() {
   };
 
   return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-center border-b border-slate-400 pb-4">
+    <div className="space-y-5 animate-fade-in-up">
+      <div className="flex flex-wrap justify-between items-center pb-3 gap-2">
         <div>
-          <h2 className="text-[24px] font-bold text-slate-800 uppercase tracking-tight">Test Catalog & Bio-Reference Limits</h2>
-          <p className="text-slate-600 text-[12px] uppercase tracking-wider mt-1">
-            Add disease profiles, configure test parameters, units, and biological limits
-          </p>
+          <h2 className="text-lg sm:text-2xl font-black tracking-tight" style={{ background: 'linear-gradient(135deg, #0f172a 0%, #059669 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Tests Catalog & Master</h2>
+          <p className="text-slate-400 text-[11px] uppercase tracking-wider mt-0.5">Manage tests, price and bio-reference limits</p>
         </div>
         <div className="flex gap-2">
-          <button 
-            onClick={() => fetchTests(searchQuery, selectedCategory)}
-            className="bg-slate-200 text-slate-700 px-3 py-2 text-[12px] font-bold uppercase tracking-wider border border-slate-400 rounded-none hover:bg-slate-300 flex items-center gap-1.5 transition-colors cursor-pointer"
-            title="Refresh list"
-          >
+          <button onClick={() => fetchTests(searchQuery, selectedCategory)} className="bg-white text-slate-600 px-3 py-2 text-[12px] font-bold uppercase border border-slate-200 rounded-lg hover:bg-slate-50 flex items-center gap-1.5 transition-colors shadow-sm cursor-pointer" title="Refresh">
             <RefreshCw size={14} className={loading ? 'animate-spin' : ''} />
           </button>
-          <button 
-            onClick={() => { closeForm(); setShowForm(true); }}
-            className="bg-emerald-600 text-white px-5 py-2 text-[12px] font-bold uppercase tracking-wider border border-emerald-800 rounded-none hover:bg-emerald-700 flex items-center gap-2 transition-colors cursor-pointer shadow-sm"
-          >
-            <Plus size={16} /> + Add Test / Disease Profile
+          <button onClick={() => { closeForm(); setShowForm(true); }} className="bg-emerald-600 hover:bg-emerald-700 text-white px-3 sm:px-4 py-2 text-[12px] font-bold uppercase rounded-lg border border-emerald-700 flex items-center gap-1.5 transition-colors shadow-md shadow-emerald-500/20 cursor-pointer">
+            <Plus size={16} /> <span className="hidden sm:inline">+ Add New Test</span><span className="sm:hidden">Add</span>
           </button>
         </div>
       </div>
 
-      {/* Test Creation & Parameter Limits Form */}
       {showForm && (
-        <div className="bg-white border-2 border-slate-700 p-5 shadow-lg rounded-none transition-all space-y-4">
-          <div className="flex justify-between items-center border-b border-slate-300 pb-2">
-            <h3 className="text-[14px] font-black uppercase text-slate-900 flex items-center gap-2">
+        <div className="bg-white rounded-2xl border border-slate-200/80 p-5 sm:p-6 shadow-sm animate-fade-in-up space-y-4">
+          <div className="flex justify-between items-center border-b border-slate-200 pb-3">
+            <h3 className="text-sm font-black uppercase text-slate-900 flex items-center gap-2">
               <FlaskConical size={18} className="text-emerald-600" />
               <span>{editingId ? `Edit Test Profile: ${editingId}` : 'Add New Disease Test & Configure Limits'}</span>
             </h3>
-            <button onClick={closeForm} className="text-slate-500 hover:text-red-500 cursor-pointer"><X size={18}/></button>
+            <button onClick={closeForm} className="text-slate-400 hover:text-slate-700 cursor-pointer"><X size={18}/></button>
           </div>
 
           <form onSubmit={handleSave} className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-3 bg-slate-50 p-3 border border-slate-300">
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-3.5 bg-slate-50/70 p-4 rounded-xl border border-slate-200">
               <div className="md:col-span-6">
                 <label className="block text-[11px] font-bold uppercase text-slate-700 mb-1">
                   Test / Disease Profile Name * (बीमारी या जाँच का नाम)
@@ -217,7 +207,7 @@ export default function Tests() {
                   name="name" 
                   value={formData.name} 
                   onChange={handleInputChange} 
-                  className="w-full border border-slate-400 p-2 text-xs font-bold outline-none focus:border-emerald-600 rounded-none bg-white" 
+                  className="w-full border border-slate-300 p-2.5 text-xs font-bold outline-none focus:border-emerald-600 focus:ring-2 focus:ring-emerald-100 rounded-lg bg-white transition-all" 
                   placeholder="e.g. Widal Test, Dengue NS1, Thyroid Profile" 
                   required
                 />
@@ -229,7 +219,7 @@ export default function Tests() {
                   name="category" 
                   value={formData.category} 
                   onChange={handleInputChange} 
-                  className="w-full border border-slate-400 p-2 text-xs font-bold outline-none focus:border-emerald-600 rounded-none bg-white cursor-pointer"
+                  className="w-full border border-slate-300 p-2.5 text-xs font-bold outline-none focus:border-emerald-600 focus:ring-2 focus:ring-emerald-100 rounded-lg bg-white cursor-pointer transition-all"
                 >
                   <option value="Biochemistry">Biochemistry</option>
                   <option value="Haematology">Haematology</option>
@@ -247,7 +237,7 @@ export default function Tests() {
                   name="price" 
                   value={formData.price} 
                   onChange={handleInputChange} 
-                  className="w-full border border-slate-400 p-2 text-xs font-bold font-mono outline-none focus:border-emerald-600 rounded-none bg-white text-emerald-800" 
+                  className="w-full border border-slate-300 p-2.5 text-xs font-bold font-mono outline-none focus:border-emerald-600 focus:ring-2 focus:ring-emerald-100 rounded-lg bg-white text-emerald-800 transition-all" 
                   placeholder="e.g. 250" 
                   required
                 />
@@ -255,8 +245,8 @@ export default function Tests() {
             </div>
 
             {/* Dynamic Parameter Rows & Limits */}
-            <div className="border border-slate-300 p-3 bg-white space-y-3">
-              <div className="flex justify-between items-center border-b border-slate-200 pb-2">
+            <div className="border border-slate-200 p-4 rounded-xl bg-white space-y-3">
+              <div className="flex justify-between items-center border-b border-slate-100 pb-2.5">
                 <div>
                   <h4 className="text-xs font-black uppercase text-slate-900 tracking-wider flex items-center gap-1.5">
                     <Sliders size={14} className="text-emerald-700" />
@@ -269,24 +259,24 @@ export default function Tests() {
                 <button
                   type="button"
                   onClick={handleAddParamRow}
-                  className="bg-emerald-50 text-emerald-800 hover:bg-emerald-100 border border-emerald-300 px-2.5 py-1 text-[11px] font-bold uppercase flex items-center gap-1 transition-colors cursor-pointer"
+                  className="bg-emerald-50 text-emerald-800 hover:bg-emerald-100 border border-emerald-300 px-3 py-1 text-[11px] font-bold uppercase rounded-lg flex items-center gap-1 transition-colors cursor-pointer"
                 >
                   <Plus size={13} /> + Add Parameter
                 </button>
               </div>
 
-              <div className="space-y-2.5 max-h-[260px] overflow-y-auto pr-1">
+              <div className="space-y-2.5 max-h-[280px] overflow-y-auto pr-1">
                 {formData.parameters.map((param, idx) => (
-                  <div key={idx} className="border border-slate-300 p-2.5 bg-slate-50/80 rounded-none relative">
-                    <div className="flex justify-between items-center mb-1.5">
-                      <span className="text-[10px] font-black uppercase tracking-wider text-slate-600 bg-slate-200 px-1.5 py-0.2">
+                  <div key={idx} className="border border-slate-200 p-3 bg-slate-50/70 rounded-xl relative">
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="text-[10px] font-black uppercase tracking-wider text-slate-700 bg-slate-200 px-2 py-0.5 rounded-md">
                         Parameter #{idx + 1}
                       </span>
                       {formData.parameters.length > 1 && (
                         <button
                           type="button"
                           onClick={() => handleRemoveParamRow(idx)}
-                          className="text-red-600 hover:text-red-800 text-[10px] font-bold uppercase flex items-center gap-0.5 cursor-pointer"
+                          className="text-rose-600 hover:text-rose-800 text-[10px] font-bold uppercase flex items-center gap-0.5 cursor-pointer"
                           title="Remove this parameter"
                         >
                           <Trash2 size={11} /> Remove
@@ -294,7 +284,7 @@ export default function Tests() {
                       )}
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-12 gap-2">
+                    <div className="grid grid-cols-1 sm:grid-cols-12 gap-2.5">
                       <div className="sm:col-span-5">
                         <label className="block text-[10px] font-bold uppercase text-slate-700 mb-0.5">
                           Parameter Name (पैरामीटर)
@@ -304,7 +294,7 @@ export default function Tests() {
                           value={param.name}
                           onChange={(e) => handleParamChange(idx, 'name', e.target.value)}
                           placeholder="e.g. Blood Sugar (F), S. Typhi O"
-                          className="w-full border border-slate-300 p-1.5 text-xs font-bold outline-none bg-white focus:border-emerald-600 rounded-none"
+                          className="w-full border border-slate-300 p-2 text-xs font-bold outline-none bg-white focus:border-emerald-600 rounded-lg"
                           required
                         />
                       </div>
@@ -317,22 +307,21 @@ export default function Tests() {
                           type="text"
                           value={param.unit}
                           onChange={(e) => handleParamChange(idx, 'unit', e.target.value)}
-                          placeholder="mg/dL, g/dL"
-                          className="w-full border border-slate-300 p-1.5 text-xs font-mono outline-none bg-white focus:border-emerald-600 rounded-none text-center"
+                          placeholder="mg/dL, %"
+                          className="w-full border border-slate-300 p-2 text-xs outline-none bg-white focus:border-emerald-600 rounded-lg font-mono"
                         />
                       </div>
 
                       <div className="sm:col-span-5">
                         <label className="block text-[10px] font-bold uppercase text-slate-700 mb-0.5">
-                          Bio-Reference Limit / Normal Range (नॉर्मल लिमिट)
+                          Normal Bio-Reference Limit (नॉर्मल लिमिट)
                         </label>
                         <input
                           type="text"
                           value={param.normal_text}
                           onChange={(e) => handleParamChange(idx, 'normal_text', e.target.value)}
-                          placeholder="e.g. 70 - 110, < 140, Negative"
-                          className="w-full border border-slate-300 p-1.5 text-xs font-mono font-bold outline-none bg-white focus:border-emerald-600 rounded-none text-blue-900"
-                          required
+                          placeholder="e.g. 70 - 110, Negative, < 1:80"
+                          className="w-full border border-slate-300 p-2 text-xs outline-none bg-white focus:border-emerald-600 rounded-lg font-mono font-bold text-blue-800"
                         />
                       </div>
                     </div>
@@ -341,49 +330,36 @@ export default function Tests() {
               </div>
             </div>
 
-            <div className="flex gap-2">
-              <button 
-                type="submit" 
-                className="bg-emerald-600 text-white px-6 py-2 text-[12px] font-bold uppercase border border-emerald-800 rounded-none hover:bg-emerald-700 transition-colors cursor-pointer flex items-center gap-1.5 shadow-sm"
-              >
-                <Save size={14} /> {editingId ? 'Update Test & Limits' : 'Save Test & Configure Limits'}
-              </button>
-              <button 
-                type="button" 
-                onClick={closeForm} 
-                className="bg-slate-200 text-slate-800 px-5 py-2 text-[12px] font-bold uppercase border border-slate-400 rounded-none hover:bg-slate-300 transition-colors cursor-pointer"
+            <div className="flex justify-end gap-2.5 pt-2">
+              <button
+                type="button"
+                onClick={closeForm}
+                className="bg-slate-100 hover:bg-slate-200 text-slate-700 px-5 py-2 text-xs font-bold uppercase rounded-lg border border-slate-200 transition-colors cursor-pointer"
               >
                 Cancel
+              </button>
+              <button
+                type="submit"
+                className="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2 text-xs font-bold uppercase rounded-lg shadow-sm flex items-center gap-1.5 transition-colors cursor-pointer"
+              >
+                <Save size={14} /> {editingId ? 'Update Test' : 'Save Test to Catalog'}
               </button>
             </div>
           </form>
         </div>
       )}
 
-      {/* Catalog Table */}
-      <div className="bg-white border border-slate-400 rounded-none">
-        <div className="p-4 border-b border-slate-400 flex flex-col sm:flex-row gap-3 justify-between sm:items-center bg-slate-100">
-           <div className="flex gap-3">
-             <form onSubmit={handleSearchSubmit} className="flex items-center border border-slate-400 bg-white px-2">
-               <Search size={16} className="text-slate-400" />
-               <input 
-                 type="text" 
-                 value={searchQuery} 
-                 onChange={(e) => setSearchQuery(e.target.value)} 
-                 placeholder="Search Tests code, name..." 
-                 className="p-2 text-[13px] outline-none w-64 bg-transparent" 
-               />
-               <button type="submit" className="text-xs uppercase font-bold text-emerald-600 hover:text-emerald-800 px-2 cursor-pointer">
-                 Search
-               </button>
+      <div className="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
+        <div className="p-3.5 border-b border-slate-100 flex flex-col sm:flex-row gap-3 justify-between sm:items-center bg-slate-50/80">
+           <div className="flex flex-wrap gap-2">
+             <form onSubmit={handleSearchSubmit} className="flex items-center border border-slate-200 bg-white px-2.5 rounded-xl w-full sm:w-auto shadow-xs focus-within:border-emerald-600 transition-colors">
+               <Search size={16} className="text-slate-400 shrink-0" />
+               <input type="text" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="Search Tests code, name..." className="p-2 text-xs font-medium outline-none w-full sm:w-52 bg-transparent" />
+               <button type="submit" className="text-xs uppercase font-bold text-emerald-600 hover:text-emerald-800 px-2 cursor-pointer shrink-0">Search</button>
              </form>
-             <div className="flex items-center border border-slate-400 bg-white px-2">
-               <Filter size={14} className="text-slate-500 mr-1" />
-               <select 
-                 value={selectedCategory} 
-                 onChange={(e) => setSelectedCategory(e.target.value)}
-                 className="text-[12px] uppercase font-bold text-slate-700 bg-transparent outline-none py-1.5 cursor-pointer"
-               >
+             <div className="flex items-center border border-slate-200 bg-white px-2.5 rounded-xl shadow-xs">
+               <Filter size={14} className="text-slate-400 mr-1.5" />
+               <select value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)} className="text-xs uppercase font-bold text-slate-700 bg-transparent outline-none py-2 cursor-pointer">
                  <option value="All">All Categories</option>
                  <option value="Haematology">Haematology</option>
                  <option value="Biochemistry">Biochemistry</option>
@@ -393,27 +369,28 @@ export default function Tests() {
                </select>
              </div>
            </div>
-           <span className="text-[12px] font-bold uppercase text-slate-600 bg-slate-200 px-3 py-1 border border-slate-300">
+           <span className="text-[11px] font-bold uppercase text-slate-600 bg-slate-100 px-3 py-1 rounded-full border border-slate-200 self-start sm:self-auto">
              Total: {tests.length} Profiles
            </span>
         </div>
 
         <div className="overflow-x-auto">
-          <table className="w-full text-[13px] text-left border-collapse">
-            <thead className="bg-slate-200 text-slate-800 font-bold uppercase tracking-wider text-[11px]">
+          <table className="w-full min-w-[640px] text-xs text-left border-collapse">
+            <thead className="bg-slate-50/90 text-slate-700 font-bold uppercase tracking-wider text-[10.5px] border-b border-slate-200/80">
               <tr>
-                <th className="px-4 py-3 border border-slate-400 w-20 text-center">Code</th>
-                <th className="px-4 py-3 border border-slate-400">Test / Disease Name</th>
-                <th className="px-4 py-3 border border-slate-400 w-36">Category</th>
-                <th className="px-4 py-3 border border-slate-400 w-28 text-center">Parameters</th>
-                <th className="px-4 py-3 border border-slate-400 w-28 text-right">Price (₹)</th>
-                <th className="px-4 py-3 border border-slate-400 text-center w-28">Actions</th>
+                <th className="px-3.5 py-3 border-r border-slate-200/60 text-center whitespace-nowrap">Code</th>
+                <th className="px-3.5 py-3 border-r border-slate-200/60">Test / Disease Name</th>
+                <th className="px-3.5 py-3 border-r border-slate-200/60 hidden sm:table-cell">Category</th>
+                <th className="px-3.5 py-3 border-r border-slate-200/60 text-center hidden md:table-cell">Parameters</th>
+                <th className="px-3.5 py-3 border-r border-slate-200/60 text-right">Price (₹)</th>
+                <th className="px-3.5 py-3 text-center">Actions</th>
               </tr>
             </thead>
-            <tbody className="text-slate-800 font-medium">
+            <tbody className="text-slate-800 font-medium divide-y divide-slate-100">
               {loading ? (
                 <tr>
-                  <td colSpan="6" className="px-4 py-8 text-center text-slate-500 font-bold uppercase tracking-wider border border-slate-400">
+                  <td colSpan="6" className="px-4 py-12 text-center text-slate-400 font-bold uppercase tracking-wider text-xs">
+                    <RefreshCw size={20} className="animate-spin mx-auto mb-2 text-emerald-500" />
                     Loading tests...
                   </td>
                 </tr>
@@ -422,31 +399,33 @@ export default function Tests() {
                 const paramCount = t.parameters ? t.parameters.length : (t.param_counts || 1);
                 return (
                   <React.Fragment key={t.id}>
-                    <tr className="hover:bg-purple-50/50 transition-colors">
-                      <td className="px-4 py-3 border border-slate-400 font-mono font-bold text-slate-700 text-center">{t.id}</td>
-                      <td className="px-4 py-3 border border-slate-400 font-bold">
-                        <p>{t.name}</p>
+                    <tr className="hover:bg-purple-50/40 transition-colors">
+                      <td className="px-3.5 py-3 border-r border-slate-100 font-mono font-bold text-slate-700 text-center whitespace-nowrap">
+                        <span className="bg-slate-100 px-2 py-0.5 rounded-md border border-slate-200">{t.id}</span>
+                      </td>
+                      <td className="px-3.5 py-3 border-r border-slate-100 font-bold">
+                        <p className="text-slate-900 text-xs sm:text-sm">{t.name}</p>
                         {t.parameters && t.parameters.length > 0 && (
                           <p className="text-[10px] text-slate-500 font-normal truncate max-w-md mt-0.5">
                             {t.parameters.map(p => `${p.name} (${p.normal_text || 'Std'})`).join(' • ')}
                           </p>
                         )}
                       </td>
-                      <td className="px-4 py-3 border border-slate-400">{t.category}</td>
-                      <td className="px-4 py-3 border border-slate-400 text-center">
+                      <td className="px-3.5 py-3 border-r border-slate-100 hidden sm:table-cell text-slate-600 font-medium">{t.category}</td>
+                      <td className="px-3.5 py-3 border-r border-slate-100 text-center hidden md:table-cell whitespace-nowrap">
                         <button
                           onClick={() => setExpandedTestId(isExpanded ? null : t.id)}
-                          className="inline-flex items-center gap-1 text-[10px] font-bold text-blue-700 hover:text-blue-900 bg-blue-50 border border-blue-200 px-2 py-0.5 cursor-pointer"
+                          className="inline-flex items-center gap-1 text-[10px] font-bold text-blue-700 hover:text-blue-900 bg-blue-50 border border-blue-200 px-2 py-0.5 rounded-full cursor-pointer transition-colors"
                         >
                           <span>{paramCount} items</span>
                           {isExpanded ? <ChevronUp size={11} /> : <ChevronDown size={11} />}
                         </button>
                       </td>
-                      <td className="px-4 py-3 border border-slate-400 text-right font-black text-emerald-700 font-mono">₹{t.price}</td>
-                      <td className="px-4 py-3 border border-slate-400 text-center">
-                        <div className="flex justify-center gap-2">
-                           <button onClick={() => handleEdit(t)} className="text-slate-600 hover:text-blue-600 transition-colors cursor-pointer" title="Edit"><Edit2 size={15} /></button>
-                           <button onClick={() => handleDelete(t.id)} className="text-slate-600 hover:text-red-600 transition-colors cursor-pointer" title="Delete"><Trash2 size={15} /></button>
+                      <td className="px-3.5 py-3 border-r border-slate-100 text-right font-black text-emerald-700 font-mono text-sm whitespace-nowrap">₹{t.price}</td>
+                      <td className="px-3.5 py-3 text-center whitespace-nowrap">
+                        <div className="flex justify-center gap-1.5">
+                           <button onClick={() => handleEdit(t)} className="p-1.5 rounded-lg bg-blue-50 text-blue-700 hover:bg-blue-600 hover:text-white transition-all cursor-pointer shadow-xs active:scale-95" title="Edit"><Edit2 size={13} /></button>
+                           <button onClick={() => handleDelete(t.id)} className="p-1.5 rounded-lg bg-rose-50 text-rose-600 hover:bg-rose-600 hover:text-white transition-all cursor-pointer shadow-xs active:scale-95" title="Delete"><Trash2 size={13} /></button>
                         </div>
                       </td>
                     </tr>
@@ -454,10 +433,10 @@ export default function Tests() {
                     {/* Expanded Parameter Limits Row */}
                     {isExpanded && (
                       <tr>
-                        <td colSpan="6" className="bg-slate-50 p-3 border border-slate-300">
-                          <div className="border border-blue-200 bg-white p-3">
-                            <div className="flex justify-between items-center mb-2 pb-1 border-b border-slate-200">
-                              <span className="text-[11px] font-black uppercase text-blue-900 flex items-center gap-1">
+                        <td colSpan="6" className="bg-slate-50/80 p-4 border-b border-slate-200">
+                          <div className="rounded-xl border border-blue-200/80 bg-white p-3.5 shadow-xs">
+                            <div className="flex justify-between items-center mb-2.5 pb-2 border-b border-slate-100">
+                              <span className="text-[11px] font-black uppercase text-blue-900 flex items-center gap-1.5">
                                 <Sliders size={13} className="text-blue-600" /> Parameters & Reference Ranges: {t.name}
                               </span>
                               <button
@@ -467,12 +446,12 @@ export default function Tests() {
                                 Edit Limits
                               </button>
                             </div>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5">
                               {(t.parameters || []).map((p, idx) => (
-                                <div key={idx} className="border border-slate-200 p-2 bg-slate-50 text-xs">
+                                <div key={idx} className="rounded-lg border border-slate-200 p-2.5 bg-slate-50 text-xs">
                                   <p className="font-extrabold text-slate-800 text-[11px]">{p.name}</p>
                                   <div className="flex justify-between items-center mt-1 text-[10px] text-slate-600">
-                                    <span>Unit: <b className="font-mono">{p.unit || '-'}</b></span>
+                                    <span>Unit: <b className="font-mono text-slate-700">{p.unit || '-'}</b></span>
                                     <span>Limit: <b className="font-mono text-blue-700">{p.normal_text || 'Standard'}</b></span>
                                   </div>
                                 </div>
