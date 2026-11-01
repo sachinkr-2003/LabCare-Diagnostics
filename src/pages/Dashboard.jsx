@@ -48,7 +48,7 @@ export default function Dashboard() {
         setLoading(true);
         const [dashData, patientsData] = await Promise.all([
           dashboardApi.getStats(),
-          patientApi.getAll()
+          patientApi.getAll('', 5)
         ]);
         if (dashData) setStats(dashData);
         if (patientsData) setRecentPatients(patientsData.slice(0, 5));
@@ -106,8 +106,8 @@ export default function Dashboard() {
             <h2 className="text-xl sm:text-2xl font-black tracking-tight" style={{ background: 'linear-gradient(135deg, #0f172a 0%, #1e40af 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Dashboard Overview</h2>
             <p className="text-slate-400 font-medium text-xs uppercase tracking-wide mt-0.5">Live Laboratory Metrics</p>
           </div>
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 text-emerald-700 text-xs font-bold uppercase tracking-wider rounded-full border border-emerald-200/80 shadow-sm" style={{ background: 'linear-gradient(135deg, #f0fdf4, #dcfce7)' }}>
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 text-emerald-700 text-xs font-bold uppercase tracking-wider rounded-none border border-emerald-200/80 shadow-xs" style={{ background: 'linear-gradient(135deg, #f0fdf4, #dcfce7)' }}>
+            <span className="w-2 h-2 rounded-none bg-emerald-500 animate-ping" />
             <span>Lab System Online</span>
           </div>
         </div>
@@ -202,7 +202,7 @@ export default function Dashboard() {
         </div>
 
         {/* Recent Reports Table */}
-        <div className="bg-white rounded-2xl border border-slate-100/80 shadow-sm overflow-hidden" style={{ boxShadow: '0 4px 24px rgba(0,0,0,0.05)' }}>
+        <div className="bg-white rounded-none border border-slate-300 shadow-sm overflow-hidden">
           <div className="px-5 py-3.5 border-b border-slate-100 flex justify-between items-center bg-slate-50/80">
             <div className="flex items-center gap-2">
               <Activity size={16} className="text-slate-600" />
@@ -294,14 +294,14 @@ export default function Dashboard() {
       <div className="w-full xl:w-[300px] space-y-4">
         
         {/* Quick Search Card */}
-        <div className="bg-white rounded-2xl border border-slate-100/80 p-5 shadow-sm" style={{ boxShadow: '0 4px 24px rgba(0,0,0,0.05)' }}>
+        <div className="bg-white rounded-none border border-slate-300 p-4 shadow-sm">
           <h3 className="text-xs font-black text-slate-800 mb-2 uppercase tracking-wider">
             Quick Patient Search
           </h3>
           <p className="text-[11px] text-slate-500 mb-3">
             Search by Patient Name, ID, or Mobile number:
           </p>
-          <form onSubmit={handleQuickSearch} className="flex border-2 border-slate-200 rounded-xl overflow-hidden focus-within:border-blue-500 transition-colors">
+          <form onSubmit={handleQuickSearch} className="flex border-2 border-slate-300 rounded-none overflow-hidden focus-within:border-blue-500 transition-colors">
             <input 
               type="text" 
               value={quickSearch}
@@ -320,8 +320,8 @@ export default function Dashboard() {
         </div>
 
         {/* Recent Registered Patients */}
-        <div className="bg-white rounded-2xl border border-slate-100/80 shadow-sm overflow-hidden" style={{ boxShadow: '0 4px 24px rgba(0,0,0,0.05)' }}>
-          <div className="px-5 py-3.5 border-b border-slate-100 flex justify-between items-center bg-slate-50/80">
+        <div className="bg-white rounded-none border border-slate-300 shadow-sm overflow-hidden">
+          <div className="px-4 py-3 border-b border-slate-200 flex justify-between items-center bg-slate-50/80">
             <h3 className="text-xs font-black text-slate-800 uppercase tracking-widest">
               Registered Patients
             </h3>
@@ -334,16 +334,16 @@ export default function Dashboard() {
             </Link>
           </div>
 
-          <div className="divide-y divide-slate-50">
+          <div className="divide-y divide-slate-100">
             {recentPatients.map((p) => {
               const initials = p.name ? p.name.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase() : 'PT';
               return (
                 <div 
                   key={p.id} 
                   onClick={() => navigate('/patients')} 
-                  className="p-3.5 flex items-center gap-3 hover:bg-blue-50/60 cursor-pointer transition-colors group"
+                  className="p-3 flex items-center gap-3 hover:bg-blue-50/60 cursor-pointer transition-colors group"
                 >
-                  <div className="w-9 h-9 rounded-xl flex items-center justify-center bg-gradient-to-br from-slate-700 to-slate-900 text-white font-black text-xs shrink-0 group-hover:from-blue-600 group-hover:to-blue-700 transition-all">
+                  <div className="w-8 h-8 rounded-none flex items-center justify-center bg-slate-800 text-white font-black text-xs shrink-0 group-hover:bg-blue-600 transition-all">
                     {initials}
                   </div>
                   <div className="flex-1 min-w-0">
@@ -355,7 +355,7 @@ export default function Dashboard() {
                     </p>
                   </div>
                   <div className="text-right shrink-0">
-                    <span className="text-[10px] font-bold bg-slate-100 px-2 py-0.5 rounded-full text-slate-600">
+                    <span className="text-[10px] font-bold bg-slate-100 px-2 py-0.5 rounded-none border border-slate-200 text-slate-600">
                       {p.age}Y
                     </span>
                   </div>

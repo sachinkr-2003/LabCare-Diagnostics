@@ -149,17 +149,17 @@ export default function Patients() {
           <p className="text-slate-400 text-[11px] uppercase tracking-wider mt-0.5">Manage all registered patients</p>
         </div>
         <div className="flex gap-2">
-          <button onClick={() => fetchPatients(searchQuery)} className="bg-white text-slate-600 px-3 py-2 text-[12px] font-bold uppercase border border-slate-200 rounded-lg hover:bg-slate-50 flex items-center gap-1.5 transition-colors shadow-sm cursor-pointer" title="Refresh">
+          <button onClick={() => fetchPatients(searchQuery)} className="bg-white text-slate-600 px-3 py-2 text-[12px] font-bold uppercase border border-slate-300 rounded-none hover:bg-slate-50 flex items-center gap-1.5 transition-colors shadow-xs cursor-pointer" title="Refresh">
             <RefreshCw size={14} className={loading ? 'animate-spin' : ''} />
           </button>
-          <button onClick={() => { closeForm(); setShowForm(true); }} className="bg-blue-600 hover:bg-blue-700 text-white px-3 sm:px-4 py-2 text-[12px] font-bold uppercase rounded-lg border border-blue-700 flex items-center gap-1.5 transition-colors shadow-md shadow-blue-500/20 cursor-pointer">
+          <button onClick={() => { closeForm(); setShowForm(true); }} className="bg-blue-600 hover:bg-blue-700 text-white px-3 sm:px-4 py-2 text-[12px] font-bold uppercase rounded-none border border-blue-700 flex items-center gap-1.5 transition-colors shadow-sm cursor-pointer">
             <Plus size={16} /> <span className="hidden sm:inline">Add New Patient</span><span className="sm:hidden">Add</span>
           </button>
         </div>
       </div>
 
       {showForm && (
-        <div className="bg-white rounded-2xl border border-slate-200/80 p-5 sm:p-6 shadow-sm animate-fade-in-up">
+        <div className="bg-white rounded-none border border-slate-300 p-5 sm:p-6 shadow-sm animate-fade-in-up">
           <div className="flex justify-between items-center border-b border-slate-200 pb-3 mb-4">
              <h3 className="text-sm font-black uppercase tracking-wider text-slate-900">
                {editingId ? `Edit Patient: ${editingId}` : 'New Patient Registration Form'}
@@ -170,17 +170,17 @@ export default function Patients() {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3.5">
             <div>
               <label className="block text-[11px] font-bold uppercase text-slate-700 mb-1">Full Name *</label>
-              <input type="text" name="name" value={formData.name} onChange={handleInputChange} className="w-full border border-slate-300 p-2.5 text-xs font-semibold outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 rounded-lg bg-white transition-all" placeholder="Enter patient full name" />
+              <input type="text" name="name" value={formData.name} onChange={handleInputChange} className="w-full border border-slate-300 p-2.5 text-xs font-semibold outline-none focus:border-blue-500 rounded-none bg-white transition-all" placeholder="Enter patient full name" />
             </div>
             <div>
               <label className="block text-[11px] font-bold uppercase text-slate-700 mb-1">Phone Number *</label>
-              <input type="text" name="phone" value={formData.phone} onChange={handleInputChange} className="w-full border border-slate-300 p-2.5 text-xs font-semibold outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 rounded-lg bg-white transition-all" placeholder="Enter phone number" />
+              <input type="text" name="phone" value={formData.phone} onChange={handleInputChange} className="w-full border border-slate-300 p-2.5 text-xs font-semibold outline-none focus:border-blue-500 rounded-none bg-white transition-all" placeholder="Enter phone number" />
             </div>
             <div>
               <label className="block text-[11px] font-bold uppercase text-slate-700 mb-1">Age & Gender *</label>
               <div className="flex gap-2">
-                <input type="number" name="age" value={formData.age} onChange={handleInputChange} className="w-1/3 border border-slate-300 p-2.5 text-xs font-semibold outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 rounded-lg bg-white transition-all" placeholder="Age" />
-                <select name="gender" value={formData.gender} onChange={handleInputChange} className="w-2/3 border border-slate-300 p-2.5 text-xs font-semibold outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 rounded-lg bg-white cursor-pointer transition-all">
+                <input type="number" name="age" value={formData.age} onChange={handleInputChange} className="w-1/3 border border-slate-300 p-2.5 text-xs font-semibold outline-none focus:border-blue-500 rounded-none bg-white transition-all" placeholder="Age" />
+                <select name="gender" value={formData.gender} onChange={handleInputChange} className="w-2/3 border border-slate-300 p-2.5 text-xs font-semibold outline-none focus:border-blue-500 rounded-none bg-white cursor-pointer transition-all">
                   <option value="Male">Male</option>
                   <option value="Female">Female</option>
                   <option value="Other">Other</option>
@@ -200,7 +200,7 @@ export default function Patients() {
                 list="doctor-suggestions"
                 value={formData.doctor_name} 
                 onChange={handleInputChange} 
-                className="w-full border border-slate-300 p-2.5 text-xs font-semibold outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 rounded-lg bg-white transition-all" 
+                className="w-full border border-slate-300 p-2.5 text-xs font-semibold outline-none focus:border-blue-500 rounded-none bg-white transition-all" 
                 placeholder="Type Doctor Name or 'Self' (Leave blank for Self)" 
               />
               <datalist id="doctor-suggestions">
@@ -217,30 +217,30 @@ export default function Patients() {
                 name="address" 
                 value={formData.address} 
                 onChange={handleInputChange} 
-                className="w-full border border-slate-300 p-2.5 text-xs font-semibold outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 rounded-lg bg-white transition-all" 
+                className="w-full border border-slate-300 p-2.5 text-xs font-semibold outline-none focus:border-blue-500 rounded-none bg-white transition-all" 
                 placeholder="e.g. Bhingari Bazaar, Deoria" 
               />
             </div>
           </div>
           <div className="mt-5 flex gap-2.5">
-             <button onClick={handleSave} className="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2 text-xs font-bold uppercase rounded-lg shadow-sm transition-all cursor-pointer">
+             <button onClick={handleSave} className="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2 text-xs font-bold uppercase rounded-none shadow-xs transition-all cursor-pointer">
                {editingId ? 'Update Detail' : 'Save Patient'}
              </button>
-             <button onClick={closeForm} className="bg-slate-100 hover:bg-slate-200 text-slate-700 px-5 py-2 text-xs font-bold uppercase rounded-lg border border-slate-200 transition-all cursor-pointer">
+             <button onClick={closeForm} className="bg-slate-100 hover:bg-slate-200 text-slate-700 px-5 py-2 text-xs font-bold uppercase rounded-none border border-slate-300 transition-all cursor-pointer">
                Cancel
              </button>
           </div>
         </div>
       )}
 
-      <div className="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
-        <div className="p-3.5 border-b border-slate-100 flex flex-col sm:flex-row gap-3 justify-between sm:items-center bg-slate-50/80">
-           <form onSubmit={handleSearchSubmit} className="flex items-center border border-slate-200 bg-white px-2.5 rounded-xl w-full sm:w-auto shadow-xs focus-within:border-blue-500 transition-colors">
+      <div className="bg-white rounded-none border border-slate-300 shadow-sm overflow-hidden">
+        <div className="p-3.5 border-b border-slate-200 flex flex-col sm:flex-row gap-3 justify-between sm:items-center bg-slate-50/80">
+           <form onSubmit={handleSearchSubmit} className="flex items-center border border-slate-300 bg-white px-2.5 rounded-none w-full sm:w-auto shadow-xs focus-within:border-blue-500 transition-colors">
              <Search size={16} className="text-slate-400 shrink-0" />
-             <input type="text" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="Search Patient ID, Name or Phone..." className="p-2 text-xs font-medium outline-none w-full sm:w-64 bg-transparent" />
+             <input type="text" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="Search Patient ID, Name or Phone..." className="p-2 text-xs font-medium outline-none w-full sm:w-64 bg-transparent rounded-none" />
              <button type="submit" className="text-xs uppercase font-bold text-blue-600 hover:text-blue-800 px-2 shrink-0 cursor-pointer">Search</button>
            </form>
-           <span className="text-[11px] font-bold uppercase text-slate-600 bg-slate-100 px-3 py-1 rounded-full border border-slate-200 self-start sm:self-auto">
+           <span className="text-[11px] font-bold uppercase text-slate-600 bg-slate-100 px-3 py-1 rounded-none border border-slate-200 self-start sm:self-auto">
              Total: {patients.length} Records
            </span>
         </div>
@@ -268,7 +268,7 @@ export default function Patients() {
               ) : patients.map((p) => (
                 <tr key={p.id} className="hover:bg-blue-50/40 transition-colors">
                   <td className="px-3.5 py-3 border-r border-slate-100 whitespace-nowrap">
-                    <span className="font-mono text-blue-700 font-bold text-xs bg-blue-50 px-2.5 py-1 rounded-md border border-blue-200">
+                    <span className="font-mono text-blue-700 font-bold text-xs bg-blue-50 px-2.5 py-1 rounded-none border border-blue-200">
                       {p.id}
                     </span>
                   </td>
@@ -278,7 +278,7 @@ export default function Patients() {
                     {p.address && <p className="text-[10px] text-slate-400 hidden sm:block truncate max-w-xs">{p.address}</p>}
                   </td>
                   <td className="px-3.5 py-3 border-r border-slate-100 text-center hidden sm:table-cell whitespace-nowrap">
-                    <span className="bg-slate-100 text-slate-700 px-2 py-0.5 rounded-full font-bold text-[10px]">
+                    <span className="bg-slate-100 text-slate-700 px-2 py-0.5 rounded-none font-bold text-[10px]">
                       {p.age}Y / {p.gender ? p.gender[0] : 'M'}
                     </span>
                   </td>
@@ -287,8 +287,8 @@ export default function Patients() {
                   <td className="px-3.5 py-3 border-r border-slate-100 hidden xl:table-cell text-slate-500 whitespace-nowrap">{formatDate(p.created_at)}</td>
                   <td className="px-3.5 py-3 text-center whitespace-nowrap">
                     <div className="flex justify-center gap-1.5">
-                      <button onClick={() => handleEdit(p)} className="p-1.5 rounded-lg bg-blue-50 text-blue-700 hover:bg-blue-600 hover:text-white transition-all cursor-pointer shadow-xs active:scale-95" title="Edit Patient"><Edit2 size={13} /></button>
-                      <button onClick={() => handleDelete(p.id)} className="p-1.5 rounded-lg bg-rose-50 text-rose-600 hover:bg-rose-600 hover:text-white transition-all cursor-pointer shadow-xs active:scale-95" title="Delete Patient"><Trash2 size={13} /></button>
+                      <button onClick={() => handleEdit(p)} className="p-1.5 rounded-none bg-blue-50 text-blue-700 hover:bg-blue-600 hover:text-white transition-all cursor-pointer shadow-xs" title="Edit Patient"><Edit2 size={13} /></button>
+                      <button onClick={() => handleDelete(p.id)} className="p-1.5 rounded-none bg-rose-50 text-rose-600 hover:bg-rose-600 hover:text-white transition-all cursor-pointer shadow-xs" title="Delete Patient"><Trash2 size={13} /></button>
                     </div>
                   </td>
                 </tr>

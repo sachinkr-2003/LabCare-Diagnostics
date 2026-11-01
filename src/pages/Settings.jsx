@@ -251,7 +251,7 @@ export default function Settings() {
           <h2 className="text-lg sm:text-2xl font-black tracking-tight" style={{ background: 'linear-gradient(135deg, #0f172a 0%, #7c3aed 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>System Configuration</h2>
           <p className="text-slate-400 text-[11px] uppercase tracking-wider mt-0.5">Manage tests, bio-reference limits, clinic profile</p>
         </div>
-        <button onClick={handleSaveAllSettings} disabled={saving} className="bg-slate-900 text-white px-4 py-2 text-[12px] font-bold uppercase rounded-lg border border-slate-950 hover:bg-slate-800 flex items-center gap-2 transition-colors disabled:opacity-50 cursor-pointer shadow-md">
+        <button onClick={handleSaveAllSettings} disabled={saving} className="bg-slate-900 text-white px-4 py-2 text-[12px] font-bold uppercase rounded-none border border-slate-950 hover:bg-slate-800 flex items-center gap-2 transition-colors disabled:opacity-50 cursor-pointer shadow-sm">
           <Save size={15} /> {saving ? 'Saving...' : 'Save All Settings'}
         </button>
       </div>
@@ -259,37 +259,37 @@ export default function Settings() {
       <div className="flex flex-col md:flex-row gap-5">
         {/* Settings Sidebar Tabs */}
         <div className="w-full md:w-1/4">
-          <div className="bg-white rounded-2xl border border-slate-100 p-2 shadow-sm flex flex-col gap-1">
+          <div className="bg-white rounded-none border border-slate-300 p-2 shadow-sm flex flex-col gap-1">
             <button 
               onClick={() => setActiveTab('test_rates')} 
-              className={`text-left px-3.5 py-2.5 text-[12px] uppercase font-bold tracking-wider flex items-center gap-2.5 transition-colors rounded-xl border ${activeTab === 'test_rates' ? 'bg-blue-600 text-white border-blue-700 shadow-md shadow-blue-500/20' : 'text-slate-600 hover:bg-slate-50 border-transparent'}`}
+              className={`text-left px-3.5 py-2.5 text-[12px] uppercase font-bold tracking-wider flex items-center gap-2.5 transition-colors rounded-none border ${activeTab === 'test_rates' ? 'bg-blue-600 text-white border-blue-700 shadow-xs' : 'text-slate-600 hover:bg-slate-50 border-transparent'}`}
             >
               <FlaskConical size={16} className={activeTab === 'test_rates' ? 'text-cyan-300' : 'text-blue-600'} /> 
               <span>Tests & Limits Master</span>
             </button>
             <button 
               onClick={() => setActiveTab('general')} 
-              className={`text-left px-3.5 py-2.5 text-[12px] uppercase font-bold tracking-wider flex items-center gap-2.5 transition-colors rounded-xl border ${activeTab === 'general' ? 'bg-slate-800 text-white border-slate-900 shadow-md' : 'text-slate-600 hover:bg-slate-50 border-transparent'}`}
+              className={`text-left px-3.5 py-2.5 text-[12px] uppercase font-bold tracking-wider flex items-center gap-2.5 transition-colors rounded-none border ${activeTab === 'general' ? 'bg-slate-800 text-white border-slate-900 shadow-xs' : 'text-slate-600 hover:bg-slate-50 border-transparent'}`}
             >
               <Building2 size={16} /> Clinic Profile
             </button>
             <button 
               onClick={() => setActiveTab('print')} 
-              className={`text-left px-3.5 py-2.5 text-[12px] uppercase font-bold tracking-wider flex items-center gap-2.5 transition-colors rounded-xl border ${activeTab === 'print' ? 'bg-slate-800 text-white border-slate-900 shadow-md' : 'text-slate-600 hover:bg-slate-50 border-transparent'}`}
+              className={`text-left px-3.5 py-2.5 text-[12px] uppercase font-bold tracking-wider flex items-center gap-2.5 transition-colors rounded-none border ${activeTab === 'print' ? 'bg-slate-800 text-white border-slate-900 shadow-xs' : 'text-slate-600 hover:bg-slate-50 border-transparent'}`}
             >
               <ImageIcon size={16} /> Report Header & Doctors
             </button>
             <button 
               onClick={() => setActiveTab('system')} 
-              className={`text-left px-3.5 py-2.5 text-[12px] uppercase font-bold tracking-wider flex items-center gap-2.5 transition-colors rounded-xl border ${activeTab === 'system' ? 'bg-slate-800 text-white border-slate-900 shadow-md' : 'text-slate-600 hover:bg-slate-50 border-transparent'}`}
+              className={`text-left px-3.5 py-2.5 text-[12px] uppercase font-bold tracking-wider flex items-center gap-2.5 transition-colors rounded-none border ${activeTab === 'system' ? 'bg-slate-800 text-white border-slate-900 shadow-xs' : 'text-slate-600 hover:bg-slate-50 border-transparent'}`}
             >
               <MonitorCheck size={16} /> Database Backup
             </button>
           </div>
           
-          <div className="bg-blue-50 rounded-xl border border-blue-100 p-3.5 mt-4 text-blue-900">
+          <div className="bg-blue-50 rounded-none border border-blue-200 p-3.5 mt-4 text-blue-900">
             <p className="text-[11px] font-bold uppercase tracking-wider mb-1 flex items-center gap-1">
-              <CheckCircle size={14} className="text-blue-600" /> Live SQLite Database
+              <CheckCircle size={14} className="text-blue-600" /> Live Database Sync
             </p>
             <p className="text-[10px] text-blue-800 leading-relaxed">
               New tests and bio-reference limits added here will immediately appear in Order Billing and Diagnostic Reports.
@@ -302,7 +302,7 @@ export default function Settings() {
           
           {/* ================= TAB 1: TESTS & BIO-REFERENCE LIMITS MASTER ================= */}
           {activeTab === 'test_rates' && (
-            <div className="bg-white rounded-2xl border border-slate-100 p-5 shadow-sm space-y-4">
+            <div className="bg-white rounded-none border border-slate-300 p-5 shadow-sm space-y-4">
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 border-b border-slate-300 pb-3">
                 <div>
                   <h3 className="text-[15px] font-black uppercase tracking-wider text-slate-800 flex items-center gap-2">

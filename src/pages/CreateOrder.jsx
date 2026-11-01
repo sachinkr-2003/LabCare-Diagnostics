@@ -53,12 +53,8 @@ export default function CreateOrder() {
         setTestOptions(testsData || []);
         if (labData) setLabSettings(labData);
 
-        // Pre-select first test if available
-        if (testsData && testsData.length > 0) {
-          setSelectedTests([
-            { id: Date.now(), testId: testsData[0].id, name: testsData[0].name, price: testsData[0].price }
-          ]);
-        }
+        // Do not pre-select tests; let the user explicitly choose what to add
+        setSelectedTests([]);
       } catch (err) {
         console.error('Failed to load initial data:', err);
       } finally {
@@ -211,6 +207,7 @@ export default function CreateOrder() {
         gender: 'Male',
         doctor: 'Self'
       });
+      setSelectedTests([]);
       setDiscountAmount(0);
       setRemarks('');
     } catch (err) {
@@ -301,6 +298,7 @@ export default function CreateOrder() {
         doctor: 'Self'
       });
       setSelectedTests([]);
+      setSelectedTests([]);
       setDiscountAmount(0);
       setRemarks('');
     } catch (err) {
@@ -337,7 +335,7 @@ export default function CreateOrder() {
           <h2 className="text-lg sm:text-2xl font-black tracking-tight" style={{ background: 'linear-gradient(135deg, #0f172a 0%, #059669 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Create Order (Billing)</h2>
           <p className="text-slate-400 text-[11px] uppercase tracking-wider mt-0.5">Register patient order and add tests</p>
         </div>
-        <button onClick={handleGenerateBill} disabled={submitting} className="bg-emerald-600 text-white px-4 py-2 text-[12px] font-bold uppercase rounded-lg border border-emerald-700 hover:bg-emerald-700 flex items-center gap-2 transition-colors disabled:opacity-50 shadow-md shadow-emerald-500/20">
+        <button onClick={handleGenerateBill} disabled={submitting} className="bg-emerald-600 text-white px-4 py-2 text-[12px] font-bold uppercase rounded-none border border-emerald-700 hover:bg-emerald-700 flex items-center gap-2 transition-colors disabled:opacity-50 shadow-xs cursor-pointer">
           <Receipt size={14} /> {submitting ? 'Generating...' : 'Generate Bill'}
         </button>
       </div>
@@ -345,7 +343,7 @@ export default function CreateOrder() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
         {/* Left Side: Patient Details */}
         <div className="lg:col-span-4 space-y-4">
-           <div className="bg-white rounded-2xl border border-slate-100 p-4 shadow-sm">
+           <div className="bg-white rounded-none border border-slate-300 p-4 shadow-sm">
               <h3 className="text-[13px] font-bold uppercase tracking-wider text-slate-800 border-b border-slate-300 pb-2 mb-3">
                 Patient Information
               </h3>
@@ -481,7 +479,7 @@ export default function CreateOrder() {
 
         {/* Right Side: Multiple Tests Selection */}
         <div className="lg:col-span-8 flex flex-col gap-4">
-           <div className="bg-white rounded-2xl border border-slate-100 shadow-sm flex-1 flex flex-col overflow-hidden">
+           <div className="bg-white rounded-none border border-slate-300 shadow-sm flex-1 flex flex-col overflow-hidden">
               
               {/* Top Bar with Add More Button */}
               <div className="p-3 border-b border-slate-400 bg-slate-100 flex justify-between items-center">
@@ -615,7 +613,7 @@ export default function CreateOrder() {
                                   value={t.observedValue || ''} 
                                   onChange={(e) => updateTestResult(t.id, e.target.value)}
                                   placeholder="0.0" 
-                                  className="flex-1 bg-white border border-slate-300 focus:border-emerald-600 focus:ring-1 focus:ring-emerald-600 p-1.5 text-center font-black text-slate-900 text-xs outline-none rounded-md" 
+                                  className="flex-1 bg-white border border-slate-300 focus:border-emerald-600 focus:ring-1 focus:ring-emerald-600 p-1.5 text-center font-black text-slate-900 text-xs outline-none rounded-none" 
                                 />
                                 {t.unit && <span className="text-[10px] font-bold text-slate-600 shrink-0 font-mono">{t.unit}</span>}
                               </div>

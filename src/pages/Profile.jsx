@@ -12,7 +12,7 @@ export default function Profile() {
   const [profile, setProfile] = useState({
     admin_name: 'Super Administrator',
     admin_designation: 'Chief Administrator',
-    admin_email: 'admin@labcare.com',
+    admin_email: 'admin@apexdiagnostic.com',
     admin_phone: '+91 99999 88888',
     admin_status: 'Active',
     admin_join_date: '15 Jan 2024'

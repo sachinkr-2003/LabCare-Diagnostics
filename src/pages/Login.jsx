@@ -94,12 +94,14 @@ export default function Login() {
 
         {/* Top Header */}
         <div className="relative z-10 flex items-center gap-3">
-          <div className="w-11 h-11 bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center rounded-xl shadow-xl shadow-blue-500/30 border border-blue-400/30">
-            <FlaskConical size={24} className="text-white" />
-          </div>
+          <img 
+            src="/apex-logo.jpg" 
+            alt="Apex Diagnostic Centre" 
+            className="w-14 h-14 object-contain rounded-full border-2 border-cyan-400/60 shadow-xl bg-white shrink-0" 
+          />
           <div>
             <h2 className="text-lg sm:text-xl font-black uppercase tracking-tight text-white">
-              LabCare <span className="text-blue-400">Diagnostics</span>
+              APEX <span className="text-cyan-400">DIAGNOSTIC CENTRE</span>
             </h2>
             <p className="text-[10px] text-slate-300 uppercase tracking-widest font-semibold">
               Research Centre & Pathology Management
@@ -109,7 +111,7 @@ export default function Login() {
 
         {/* Middle Content */}
         <div className="relative z-10 hidden lg:block my-auto py-4 max-w-xl space-y-5">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-blue-400/30 text-blue-300 text-xs font-bold uppercase tracking-wider" style={{ background: 'rgba(59,130,246,0.12)', backdropFilter: 'blur(8px)' }}>
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-none border border-blue-400/30 text-blue-300 text-xs font-bold uppercase tracking-wider" style={{ background: 'rgba(59,130,246,0.18)' }}>
             <Activity size={13} className="text-blue-400 animate-pulse" />
             Clinical Excellence & Diagnostics
           </div>
@@ -129,8 +131,8 @@ export default function Login() {
             {features.map((f, i) => (
               <div
                 key={i}
-                className="p-3 flex items-center gap-2.5 rounded-xl border border-white/8 transition-all hover:border-white/15"
-                style={{ background: 'rgba(15,23,42,0.7)', backdropFilter: 'blur(8px)' }}
+                className="p-3 flex items-center gap-2.5 border border-white/10 transition-all hover:border-white/20"
+                style={{ background: 'rgba(15,23,42,0.95)' }}
               >
                 {f.icon}
                 <div>
@@ -162,7 +164,23 @@ export default function Login() {
       >
         {/* Top Header */}
         <div className="space-y-2 max-w-md w-full mx-auto">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-blue-500/30 text-blue-300 text-[10px] font-bold uppercase tracking-widest" style={{ background: 'rgba(59,130,246,0.1)' }}>
+          {/* Mobile visible logo header */}
+          <div className="flex items-center gap-3 lg:hidden pb-2 mb-2 border-b border-white/10">
+            <img 
+              src="/apex-logo.jpg" 
+              alt="Apex Logo" 
+              className="w-11 h-11 object-contain rounded-full border-2 border-cyan-400/50 bg-white shadow-md shrink-0" 
+            />
+            <div>
+              <h2 className="text-base font-black uppercase tracking-tight text-white leading-tight">
+                APEX <span className="text-cyan-400">DIAGNOSTIC</span>
+              </h2>
+              <p className="text-[9.5px] text-slate-300 uppercase tracking-widest font-bold">
+                CENTRE • BHORE
+              </p>
+            </div>
+          </div>
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-none border border-blue-500/30 text-blue-300 text-[10px] font-bold uppercase tracking-widest" style={{ background: 'rgba(59,130,246,0.1)' }}>
             <Lock size={11} />
             Restricted Staff Portal
           </div>
@@ -182,8 +200,8 @@ export default function Login() {
               Staff Username / ID
             </label>
             <div
-              className="flex border transition-all focus-within:border-blue-500"
-              style={{ background: 'rgba(255,255,255,0.04)', borderColor: 'rgba(255,255,255,0.1)', borderRadius: '10px' }}
+              className="flex border transition-all focus-within:border-blue-500 rounded-none"
+              style={{ background: 'rgba(255,255,255,0.04)', borderColor: 'rgba(255,255,255,0.1)' }}
             >
               <div className="p-3 border-r flex items-center justify-center text-slate-500" style={{ borderColor: 'rgba(255,255,255,0.08)' }}>
                 <User size={18} />
@@ -214,8 +232,8 @@ export default function Login() {
               </button>
             </div>
             <div
-              className="flex border transition-all focus-within:border-blue-500"
-              style={{ background: 'rgba(255,255,255,0.04)', borderColor: 'rgba(255,255,255,0.1)', borderRadius: '10px' }}
+              className="flex border transition-all focus-within:border-blue-500 rounded-none"
+              style={{ background: 'rgba(255,255,255,0.04)', borderColor: 'rgba(255,255,255,0.1)' }}
             >
               <div className="p-3 border-r flex items-center justify-center text-slate-500" style={{ borderColor: 'rgba(255,255,255,0.08)' }}>
                 <Lock size={18} />
@@ -251,7 +269,7 @@ export default function Login() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full text-white p-3.5 text-sm font-black uppercase tracking-wider rounded-xl flex items-center justify-center gap-2.5 transition-all cursor-pointer shadow-lg disabled:opacity-60 btn-press relative overflow-hidden group"
+            className="w-full text-white p-3.5 text-sm font-black uppercase tracking-wider flex items-center justify-center gap-2.5 transition-all cursor-pointer disabled:opacity-60 relative overflow-hidden group"
             style={{ background: 'linear-gradient(135deg, #2563eb 0%, #4f46e5 100%)', boxShadow: '0 4px 24px rgba(37,99,235,0.4)' }}
           >
             <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 pointer-events-none" />
@@ -279,8 +297,8 @@ export default function Login() {
 
         {/* Footer */}
         <div className="pt-3 border-t max-w-md w-full mx-auto space-y-1 text-center" style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
-          <p className="text-[10px] text-slate-500 uppercase tracking-widest font-semibold">
-            LabCare Diagnostics • Laboratory Management System
+          <p className="text-[10px] text-slate-400 uppercase tracking-widest font-bold">
+            Apex Diagnostic Centre • Laboratory Management System
           </p>
           <p className="text-xs text-blue-500 font-bold tracking-wider">
             Developed by Sachin

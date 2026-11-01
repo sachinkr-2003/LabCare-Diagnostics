@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import { Save, FlaskConical, Search, Plus, CheckCircle, Clock, FileText, AlertTriangle, User, Calendar, X, ArrowRight } from 'lucide-react';
+import { Save, FlaskConical, Search, Plus, CheckCircle, Clock, FileText, AlertTriangle, User, Calendar, X, ArrowRight, Trash2 } from 'lucide-react';
 import Swal from 'sweetalert2';
 import { resultApi, testApi } from '../services/api';
 
@@ -125,6 +125,29 @@ export default function EnterResult() {
 
   const handleRemoveParam = (indexToRemove) => {
     setResultsState(prev => prev.filter((_, idx) => idx !== indexToRemove));
+  };
+
+  const handleRemoveTestGroup = (testNameToRemove) => {
+    setResultsState(prev => prev.filter(p => (p.test_name || 'Laboratory Test') !== testNameToRemove));
+  };
+
+  const handleClearAllTests = () => {
+    if (resultsState.length === 0) return;
+    Swal.fire({
+      title: 'Sabhi Tests Hataayein?',
+      text: 'Kya aap is order se sabhi tests hatana chahte hain? Aap apni pasand ke naye test catalog se add kar payenge.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#dc2626',
+      cancelButtonColor: '#64748b',
+      confirmButtonText: 'Haan, Sab Hatao (Clear All)',
+      cancelButtonText: 'Cancel',
+      customClass: { popup: 'rounded-none' }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        setResultsState([]);
+      }
+    });
   };
 
   const handleAddCustomParam = () => {
@@ -252,12 +275,12 @@ export default function EnterResult() {
       </div>
 
       {/* Mobile Tab Switcher (Visible only on < lg screens) */}
-      <div className="flex lg:hidden bg-slate-200/70 p-1 rounded-xl text-xs font-bold shadow-2xs">
+      <div className="flex lg:hidden bg-slate-200/70 p-1 rounded-none text-xs font-bold shadow-2xs">
         <button
           type="button"
           onClick={() => setMobileTab('queue')}
-          className={`flex-1 py-2 text-center rounded-lg transition-all flex items-center justify-center gap-1.5 ${
-            mobileTab === 'queue' ? 'bg-white text-slate-900 shadow-sm font-black' : 'text-slate-600 hover:text-slate-900'
+          className={`flex-1 py-2 text-center rounded-none transition-all flex items-center justify-center gap-1.5 ${
+            mobileTab === 'queue' ? 'bg-white text-slate-900 shadow-xs font-black' : 'text-slate-600 hover:text-slate-900'
           }`}
         >
           <Clock size={13} />
@@ -266,8 +289,8 @@ export default function EnterResult() {
         <button
           type="button"
           onClick={() => setMobileTab('form')}
-          className={`flex-1 py-2 text-center rounded-lg transition-all flex items-center justify-center gap-1.5 ${
-            mobileTab === 'form' ? 'bg-white text-slate-900 shadow-sm font-black' : 'text-slate-600 hover:text-slate-900'
+          className={`flex-1 py-2 text-center rounded-none transition-all flex items-center justify-center gap-1.5 ${
+            mobileTab === 'form' ? 'bg-white text-slate-900 shadow-xs font-black' : 'text-slate-600 hover:text-slate-900'
           }`}
         >
           <FileText size={13} />
@@ -278,7 +301,7 @@ export default function EnterResult() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
         {/* Left Search & Patient List Panel (4 Cols) */}
         <div className={`lg:col-span-4 space-y-4 ${mobileTab === 'queue' ? 'block' : 'hidden lg:block'}`}>
-          <div className="bg-white rounded-2xl border border-slate-100 p-5 shadow-sm">
+          <div className="bg-white rounded-none border border-slate-300 p-5 shadow-sm">
             <h3 className="text-sm font-bold uppercase tracking-wider text-slate-800 border-b border-slate-300 pb-2 flex items-center justify-between">
               <span>Find Patient Order</span>
               <span className="text-[10px] text-purple-700 bg-purple-50 px-2 py-0.5 border border-purple-200">
@@ -341,7 +364,7 @@ export default function EnterResult() {
           </div>
 
           {/* Quick-Pick Matching Orders / Pending Queue */}
-          <div className="bg-white rounded-2xl border border-slate-100 p-4 shadow-sm">
+          <div className="bg-white rounded-none border border-slate-300 p-4 shadow-sm">
             <div className="flex justify-between items-center border-b border-slate-300 pb-2 mb-3">
               <span className="text-xs font-bold uppercase tracking-wider text-slate-700">
                 {searchId.trim() ? `Search Matches (${suggestions.length})` : `Pending Orders Queue (${suggestions.length})`}
@@ -395,7 +418,7 @@ export default function EnterResult() {
         {/* Right Test Results Form Panel (8 Cols) */}
         <div className={`lg:col-span-8 ${mobileTab === 'form' ? 'block' : 'hidden lg:block'}`}>
           {!orderData ? (
-            <div className="bg-white rounded-2xl border border-slate-100 p-12 text-center flex flex-col items-center justify-center min-h-[420px] shadow-sm">
+            <div className="bg-white rounded-none border border-slate-300 p-12 text-center flex flex-col items-center justify-center min-h-[420px] shadow-sm">
               <Clock size={48} className="text-slate-300 mb-4" />
               <h3 className="text-lg font-bold text-slate-700 uppercase tracking-widest">Select Patient Order</h3>
               <p className="text-xs text-slate-500 mt-2 max-w-md">
@@ -403,9 +426,9 @@ export default function EnterResult() {
               </p>
             </div>
           ) : (
-            <div className="bg-white rounded-2xl border border-slate-200/80 space-y-5 p-4 sm:p-5 shadow-sm overflow-hidden">
+            <div className="bg-white rounded-none border border-slate-300 space-y-5 p-4 sm:p-5 shadow-sm overflow-hidden">
               {/* Patient Banner */}
-              <div className="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-white p-4 rounded-xl border border-slate-700/80 flex flex-wrap justify-between items-center gap-3 shadow-md">
+              <div className="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-white p-4 rounded-none border border-slate-700/80 flex flex-wrap justify-between items-center gap-3 shadow-md">
                 <div>
                   <div className="flex items-center gap-2">
                     <span className="text-base font-black uppercase text-white">{orderData.patient_name}</span>
@@ -416,7 +439,7 @@ export default function EnterResult() {
                   </p>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className={`text-[10px] font-bold px-2 py-1 border uppercase ${
+                  <span className={`text-[10px] font-bold px-2 py-1 border uppercase rounded-none ${
                     orderData.status === 'Completed' ? 'bg-emerald-500 text-white border-emerald-400' : 'bg-amber-500 text-white border-amber-400'
                   }`}>
                     STATUS: {orderData.status}
@@ -425,7 +448,7 @@ export default function EnterResult() {
               </div>
 
               {/* Referred Doctor Edit / Review Box */}
-              <div className="bg-blue-50/60 border border-blue-200/80 rounded-xl p-3 sm:p-3.5 flex flex-wrap items-center justify-between gap-3">
+              <div className="bg-blue-50/60 border border-blue-200/80 rounded-none p-3 sm:p-3.5 flex flex-wrap items-center justify-between gap-3">
                 <div className="flex-1 min-w-[280px]">
                   <label className="block text-[11px] font-bold uppercase text-blue-900 mb-1 flex items-center gap-1.5">
                     <User size={13} className="text-blue-700" /> Referred By (Doctor Name):
@@ -435,7 +458,7 @@ export default function EnterResult() {
                     value={doctorName}
                     onChange={(e) => setDoctorName(e.target.value)}
                     list="enter-result-doctor-list"
-                    className="w-full bg-white border border-blue-200 px-3 py-2 text-xs font-bold text-slate-900 outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-500/20 rounded-lg"
+                    className="w-full bg-white border border-blue-200 px-3 py-2 text-xs font-bold text-slate-900 outline-none focus:border-blue-600 rounded-none"
                     placeholder="Type Doctor Name or 'Self' if came alone"
                   />
                   <datalist id="enter-result-doctor-list">
@@ -461,14 +484,92 @@ export default function EnterResult() {
                 </div>
               </div>
 
-                            {/* Investigation Tables by Test */}
+                            {/* Quick Add / Manage Tests Bar (Top Placement) */}
+              <div className="flex flex-wrap items-center justify-between gap-3 p-3 bg-slate-50 border-2 border-slate-300">
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="text-xs font-black uppercase text-slate-800 flex items-center gap-1">
+                    <Plus size={14} className="text-purple-600" /> Naya Test Add Karein:
+                  </span>
+                  <select
+                    value={selectedCatalogTestId}
+                    onChange={(e) => handleAddCatalogCheck(e.target.value)}
+                    className="bg-white border-2 border-purple-600 text-xs font-bold px-3 py-1.5 outline-none cursor-pointer hover:border-purple-800 text-slate-900"
+                  >
+                    <option value="">+ Catalog se Test Chunein (e.g. CBC, Sugar, LFT, KFT, Thyroid)...</option>
+                    {catalogTests.map(t => (
+                      <option key={t.id} value={t.id}>{t.name} ({t.category || 'General'})</option>
+                    ))}
+                  </select>
+                  <button
+                    type="button"
+                    onClick={handleAddCustomParam}
+                    className="text-xs font-bold bg-white text-blue-700 hover:text-blue-900 border border-blue-400 px-2.5 py-1.5 flex items-center gap-1 cursor-pointer transition-colors"
+                    title="Add manual custom test or parameter"
+                  >
+                    <Plus size={13} /> + Custom Parameter
+                  </button>
+                </div>
+
+                {resultsState.length > 0 && (
+                  <button
+                    type="button"
+                    onClick={handleClearAllTests}
+                    className="text-xs font-bold text-red-600 hover:text-white hover:bg-red-600 border border-red-300 px-2.5 py-1.5 flex items-center gap-1 cursor-pointer transition-colors ml-auto"
+                    title="Clear all tests from this order"
+                  >
+                    <Trash2 size={13} /> Sabhi Test Hataayein (Clear All)
+                  </button>
+                )}
+              </div>
+
+              {/* Empty state when no test is added */}
+              {resultsState.length === 0 && (
+                <div className="p-8 border-2 border-dashed border-purple-300 bg-purple-50/40 text-center space-y-3">
+                  <FlaskConical size={36} className="mx-auto text-purple-500" />
+                  <h4 className="text-sm font-black text-slate-800 uppercase tracking-wider">
+                    Koi Test Add Nahi Hai
+                  </h4>
+                  <p className="text-xs text-slate-600 max-w-md mx-auto">
+                    Mareeza ke liye jo test karna hai, upar diye gaye catalog dropdown se select karein ya custom test jodein:
+                  </p>
+                  <div className="pt-2 flex flex-wrap items-center justify-center gap-2">
+                    <select
+                      value={selectedCatalogTestId}
+                      onChange={(e) => handleAddCatalogCheck(e.target.value)}
+                      className="bg-purple-700 hover:bg-purple-800 text-white font-bold text-xs px-4 py-2 outline-none cursor-pointer border border-purple-900 shadow-sm"
+                    >
+                      <option value="" className="text-slate-900 bg-white">+ Catalog se Test Chunein...</option>
+                      {catalogTests.map(t => (
+                        <option key={t.id} value={t.id} className="text-slate-900 bg-white">{t.name} ({t.category || 'General'})</option>
+                      ))}
+                    </select>
+                    <button
+                      type="button"
+                      onClick={handleAddCustomParam}
+                      className="bg-white border border-slate-300 hover:bg-slate-100 text-slate-800 text-xs font-bold px-3 py-2 cursor-pointer"
+                    >
+                      + Custom Parameter
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {/* Investigation Tables by Test */}
               {Object.entries(groupedResults).map(([testName, params]) => (
-                <div key={testName} className="rounded-xl border border-slate-200/80 overflow-hidden bg-white shadow-2xs">
+                <div key={testName} className="rounded-none border border-slate-300 overflow-hidden bg-white shadow-2xs">
                   <div className="p-3 border-b border-slate-300 flex justify-between items-center bg-slate-100">
                     <div>
                       <h3 className="text-sm font-bold uppercase tracking-wider text-slate-900">{testName}</h3>
                       <p className="text-[11px] text-slate-500 uppercase mt-0.5">Parameters: {params.length} items</p>
                     </div>
+                    <button
+                      type="button"
+                      onClick={() => handleRemoveTestGroup(testName)}
+                      className="text-[11px] font-bold text-red-600 hover:text-red-800 bg-red-50 hover:bg-red-100 border border-red-200 px-2.5 py-1 flex items-center gap-1 cursor-pointer transition-colors shadow-2xs"
+                      title={`Remove all ${params.length} parameters of ${testName}`}
+                    >
+                      <Trash2 size={12} /> Remove Test
+                    </button>
                   </div>
                   <div className="overflow-x-auto">
                     <table className="w-full min-w-[520px] text-xs text-left border-collapse">
@@ -544,16 +645,14 @@ export default function EnterResult() {
                               )}
                             </td>
                             <td className="px-2 py-2 text-center">
-                              {!p.id && (
-                                <button
-                                  type="button"
-                                  onClick={() => handleRemoveParam(p.originalIndex)}
-                                  className="text-slate-400 hover:text-red-600 p-1 cursor-pointer transition-colors"
-                                  title="Remove this test"
-                                >
-                                  <X size={14} />
-                                </button>
-                              )}
+                              <button
+                                type="button"
+                                onClick={() => handleRemoveParam(p.originalIndex)}
+                                className="text-slate-400 hover:text-red-600 p-1 cursor-pointer transition-colors"
+                                title="Remove this parameter"
+                              >
+                                <X size={15} />
+                              </button>
                             </td>
                           </tr>
                         ))}
@@ -591,14 +690,14 @@ export default function EnterResult() {
               <div className="p-3.5 sm:p-4 bg-slate-50 border-t border-slate-200/80 flex flex-col sm:flex-row justify-between items-center gap-2.5">
                 <button 
                   onClick={() => navigate('/reports')} 
-                  className="w-full sm:w-auto bg-slate-200 hover:bg-slate-300 text-slate-700 px-4 py-2 text-xs font-bold uppercase rounded-lg transition-colors cursor-pointer text-center"
+                  className="w-full sm:w-auto bg-slate-200 hover:bg-slate-300 text-slate-700 px-4 py-2 text-xs font-bold uppercase rounded-none transition-colors cursor-pointer text-center"
                 >
                   Back to Reports
                 </button>
                 <button 
                   onClick={handleSaveResults} 
                   disabled={saving}
-                  className="w-full sm:w-auto bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white px-6 py-2.5 text-xs font-black uppercase tracking-wider rounded-xl flex items-center justify-center gap-2 transition-all disabled:opacity-50 cursor-pointer shadow-md shadow-emerald-500/20 active:scale-95"
+                  className="w-full sm:w-auto bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white px-6 py-2.5 text-xs font-black uppercase tracking-wider rounded-none flex items-center justify-center gap-2 transition-all disabled:opacity-50 cursor-pointer shadow-sm"
                 >
                   <Save size={16} /> {saving ? 'Saving...' : 'Save Results & Complete Order'}
                 </button>

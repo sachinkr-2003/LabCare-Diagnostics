@@ -12,28 +12,25 @@ function NavItem({ icon, label, to, onClick }) {
       to={to}
       onClick={onClick}
       className={({ isActive }) =>
-        `relative flex items-center gap-3 px-3 py-2.5 mx-2 rounded-xl transition-all duration-200 group ${
+        `relative flex items-center gap-3 px-3.5 py-2.5 mx-1.5 rounded-none transition-all duration-200 group border-l-2 ${
           isActive
-            ? 'bg-gradient-to-r from-blue-600/90 to-indigo-600/80 text-white shadow-lg shadow-blue-500/25 nav-active-glow'
-            : 'text-slate-400 hover:bg-white/6 hover:text-white'
+            ? 'bg-gradient-to-r from-blue-600/90 to-indigo-600/80 text-white border-blue-400 shadow-md shadow-blue-500/20'
+            : 'text-slate-400 hover:bg-white/6 hover:text-white border-transparent'
         }`
       }
     >
       {({ isActive }) => (
         <>
-          {isActive && (
-            <span className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-7 bg-gradient-to-b from-blue-300 to-indigo-400 rounded-r-full" />
-          )}
           <span className={`shrink-0 transition-all duration-200 ${
             isActive
               ? 'text-white drop-shadow-sm'
-              : 'text-slate-500 group-hover:text-blue-400 group-hover:scale-110'
+              : 'text-slate-500 group-hover:text-blue-400 group-hover:scale-105'
           }`}>
             {icon}
           </span>
-          <span className="text-[12.5px] font-semibold tracking-wide flex-1">{label}</span>
+          <span className="text-[12px] font-semibold tracking-wide flex-1">{label}</span>
           {isActive && (
-            <span className="w-1.5 h-1.5 rounded-full bg-white/70 animate-pulse shrink-0" />
+            <span className="w-1.5 h-1.5 rounded-none bg-white/80 shrink-0" />
           )}
         </>
       )}
@@ -90,12 +87,14 @@ export default function Sidebar() {
       {/* Logo */}
       <div>
         <div className="px-4 py-4 flex items-center gap-3 border-b border-white/6">
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-500 via-blue-600 to-indigo-700 flex items-center justify-center shadow-lg shadow-blue-500/40 shrink-0 animate-pulse-glow">
-            <FlaskConical size={19} className="text-white" />
-          </div>
+          <img 
+            src="/apex-logo.jpg" 
+            alt="Apex Diagnostic Centre" 
+            className="w-10 h-10 object-contain rounded-full border border-white/30 shadow-md shrink-0 bg-white" 
+          />
           <div className="flex-1 min-w-0">
-            <h1 className="text-[14px] font-black tracking-tight text-white uppercase leading-tight">LabCare</h1>
-            <p className="text-[9px] text-blue-400/80 tracking-widest uppercase font-semibold">Diagnostics LMS</p>
+            <h1 className="text-[13px] font-black tracking-tight text-white uppercase leading-tight truncate">APEX DIAGNOSTIC</h1>
+            <p className="text-[9px] text-cyan-400/90 tracking-widest uppercase font-bold">CENTRE • BHORE</p>
           </div>
           <button onClick={close} className="ml-auto text-slate-500 hover:text-white md:hidden transition-colors p-1">
             <X size={17} />
@@ -103,8 +102,8 @@ export default function Sidebar() {
         </div>
 
         {/* System status */}
-        <div className="mx-3 mt-3 mb-1 px-3 py-2 rounded-lg bg-emerald-500/8 border border-emerald-500/15 flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping shrink-0" />
+        <div className="mx-2.5 mt-3 mb-1 px-3 py-2 rounded-none bg-emerald-500/10 border border-emerald-500/20 flex items-center gap-2">
+          <span className="w-2 h-2 rounded-none bg-emerald-400 animate-ping shrink-0" />
           <span className="text-[10px] font-bold text-emerald-400 uppercase tracking-wider">System Online</span>
           <Activity size={11} className="text-emerald-400/60 ml-auto" />
         </div>
@@ -131,10 +130,10 @@ export default function Sidebar() {
           className="px-3 py-3 flex items-center gap-3 hover:bg-white/4 transition-all group"
         >
           <div className="relative shrink-0">
-            <div className="w-9 h-9 rounded-full ring-2 ring-blue-500/40 overflow-hidden group-hover:ring-blue-400/70 transition-all">
+            <div className="w-8 h-8 rounded-none border border-slate-600 overflow-hidden group-hover:border-blue-400 transition-all">
               <img src={avatar} alt="Admin" className="w-full h-full object-cover" onError={e => { e.target.src = defaultAvatar; }} />
             </div>
-            <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-emerald-400 rounded-full border-2 border-[#0f172a]" />
+            <span className="absolute -bottom-0.5 -right-0.5 w-2 h-2 bg-emerald-400 rounded-none border border-[#0f172a]" />
           </div>
           <div className="overflow-hidden flex-1">
             <p className="text-[11px] font-black text-white truncate uppercase tracking-wide group-hover:text-blue-300 transition-colors">{adminName}</p>
@@ -164,7 +163,7 @@ export default function Sidebar() {
       {/* Mobile hamburger */}
       <button
         onClick={() => setOpen(true)}
-        className="md:hidden fixed top-3.5 left-3.5 z-50 bg-slate-900/95 backdrop-blur-sm text-white p-2.5 rounded-xl shadow-xl border border-white/10 hover:bg-slate-800 transition-colors btn-press"
+        className="md:hidden fixed top-3.5 left-3.5 z-50 bg-slate-900/95 backdrop-blur-sm text-white p-2.5 rounded-none shadow-xl border border-white/10 hover:bg-slate-800 transition-colors btn-press cursor-pointer"
         aria-label="Open menu"
       >
         <Menu size={19} />

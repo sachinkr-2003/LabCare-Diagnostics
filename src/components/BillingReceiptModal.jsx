@@ -66,7 +66,7 @@ export default function BillingReceiptModal({ order, lab, onClose, onEnterResult
     <div id="receipt-print-portal">
       <div 
         onClick={onClose}
-        className="print-modal-backdrop fixed inset-0 z-[9999] bg-black/85 backdrop-blur-sm flex items-center justify-center p-3 sm:p-5 overflow-hidden"
+        className="print-modal-backdrop fixed inset-0 z-[9999] bg-black/90 flex items-center justify-center p-3 sm:p-5 overflow-hidden"
       >
         <div 
           onClick={(e) => e.stopPropagation()}
@@ -90,13 +90,13 @@ export default function BillingReceiptModal({ order, lab, onClose, onEnterResult
             <div className="flex items-center gap-2">
               <button 
                 onClick={handlePrint}
-                className="bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white px-4 py-1.5 text-xs font-bold uppercase rounded-sm flex items-center gap-1.5 transition-all cursor-pointer shadow-sm border border-emerald-400/30"
+                className="bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white px-4 py-1.5 text-xs font-bold uppercase rounded-none flex items-center gap-1.5 transition-all cursor-pointer shadow-xs border border-emerald-400/30"
               >
                 <Printer size={14} /> Print Receipt Slip
               </button>
               <button 
                 onClick={onClose}
-                className="bg-white/10 hover:bg-red-600 text-white px-3 py-1.5 text-xs font-bold uppercase rounded-sm flex items-center gap-1 transition-all cursor-pointer border border-white/20"
+                className="bg-white/10 hover:bg-red-600 text-white px-3 py-1.5 text-xs font-bold uppercase rounded-none flex items-center gap-1 transition-all cursor-pointer border border-white/20"
               >
                 <X size={15} /> Close
               </button>
@@ -110,25 +110,23 @@ export default function BillingReceiptModal({ order, lab, onClose, onEnterResult
           >
             {/* Center Watermark */}
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none z-0 overflow-hidden">
-              <div className="flex flex-col items-center justify-center -rotate-25 opacity-[0.06] print:opacity-[0.08] text-center w-full px-4">
-                <div className="w-52 h-52 rounded-full border-4 border-dashed border-[#0b1e3b] p-2 flex items-center justify-center mb-2">
-                  <span className="text-3xl font-black text-[#0b1e3b] tracking-widest font-serif">ADC</span>
-                </div>
-                <span 
-                  className="text-3xl font-black italic tracking-wider text-[#0b1e3b] uppercase leading-none whitespace-nowrap"
-                  style={{ fontFamily: '"Arial Black", Impact, sans-serif' }}
-                >
-                  {labName}
-                </span>
+              <div className="flex flex-col items-center justify-center opacity-[0.14] print:opacity-[0.16] text-center w-full px-4 mix-blend-multiply">
+                <img 
+                  src="/apex-logo.jpg" 
+                  alt="Watermark" 
+                  className="w-56 h-56 object-contain rounded-full" 
+                />
               </div>
             </div>
 
             {/* Receipt Content Header */}
             <div className="text-center border-b-2 border-slate-900 pb-3 relative z-10">
               <div className="flex items-center justify-center gap-2 mb-1">
-                <div className="w-9 h-9 rounded-full border border-[#b91c1c] flex items-center justify-center bg-white shadow-2xs">
-                  <span className="text-[10px] font-black text-[#0b1e3b] font-serif">ADC</span>
-                </div>
+                <img 
+                  src="/apex-logo.jpg" 
+                  alt="Apex Logo" 
+                  className="w-12 h-12 object-contain rounded-full border border-slate-900 bg-white"
+                />
                 <h1 
                   className="text-2xl font-black italic uppercase tracking-tight text-[#0b1e3b]"
                   style={{ fontFamily: '"Arial Black", Impact, sans-serif' }}
@@ -281,7 +279,7 @@ export default function BillingReceiptModal({ order, lab, onClose, onEnterResult
           <div className="bg-slate-100 px-5 py-2.5 border-t border-slate-300 flex justify-between items-center shrink-0 print:hidden">
             <button 
               onClick={onClose}
-              className="bg-slate-300 hover:bg-slate-400 text-slate-800 px-4 py-1.5 text-xs font-bold uppercase rounded-sm transition-colors cursor-pointer"
+              className="bg-slate-300 hover:bg-slate-400 text-slate-800 px-4 py-1.5 text-xs font-bold uppercase rounded-none transition-colors cursor-pointer"
             >
               Cancel / Close
             </button>
@@ -289,14 +287,14 @@ export default function BillingReceiptModal({ order, lab, onClose, onEnterResult
               {onEnterResults && (
                 <button 
                   onClick={onEnterResults}
-                  className="bg-purple-600 hover:bg-purple-700 text-white px-3.5 py-1.5 text-xs font-bold uppercase rounded-sm flex items-center gap-1.5 transition-colors cursor-pointer shadow-sm"
+                  className="bg-purple-600 hover:bg-purple-700 text-white px-3.5 py-1.5 text-xs font-bold uppercase rounded-none flex items-center gap-1.5 transition-colors cursor-pointer shadow-xs"
                 >
                   Enter Results <ArrowRight size={14} />
                 </button>
               )}
               <button 
                 onClick={handlePrint}
-                className="bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white px-5 py-1.5 text-xs font-bold uppercase rounded-sm flex items-center gap-1.5 transition-all cursor-pointer shadow-sm"
+                className="bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white px-5 py-1.5 text-xs font-bold uppercase rounded-none flex items-center gap-1.5 transition-all cursor-pointer shadow-xs"
               >
                 <Printer size={14} /> Print Receipt Slip
               </button>

@@ -177,17 +177,17 @@ export default function Tests() {
           <p className="text-slate-400 text-[11px] uppercase tracking-wider mt-0.5">Manage tests, price and bio-reference limits</p>
         </div>
         <div className="flex gap-2">
-          <button onClick={() => fetchTests(searchQuery, selectedCategory)} className="bg-white text-slate-600 px-3 py-2 text-[12px] font-bold uppercase border border-slate-200 rounded-lg hover:bg-slate-50 flex items-center gap-1.5 transition-colors shadow-sm cursor-pointer" title="Refresh">
+          <button onClick={() => fetchTests(searchQuery, selectedCategory)} className="bg-white text-slate-600 px-3 py-2 text-[12px] font-bold uppercase border border-slate-300 rounded-none hover:bg-slate-50 flex items-center gap-1.5 transition-colors shadow-xs cursor-pointer" title="Refresh">
             <RefreshCw size={14} className={loading ? 'animate-spin' : ''} />
           </button>
-          <button onClick={() => { closeForm(); setShowForm(true); }} className="bg-emerald-600 hover:bg-emerald-700 text-white px-3 sm:px-4 py-2 text-[12px] font-bold uppercase rounded-lg border border-emerald-700 flex items-center gap-1.5 transition-colors shadow-md shadow-emerald-500/20 cursor-pointer">
+          <button onClick={() => { closeForm(); setShowForm(true); }} className="bg-emerald-600 hover:bg-emerald-700 text-white px-3 sm:px-4 py-2 text-[12px] font-bold uppercase rounded-none border border-emerald-700 flex items-center gap-1.5 transition-colors shadow-sm cursor-pointer">
             <Plus size={16} /> <span className="hidden sm:inline">+ Add New Test</span><span className="sm:hidden">Add</span>
           </button>
         </div>
       </div>
 
       {showForm && (
-        <div className="bg-white rounded-2xl border border-slate-200/80 p-5 sm:p-6 shadow-sm animate-fade-in-up space-y-4">
+        <div className="bg-white rounded-none border border-slate-300 p-5 sm:p-6 shadow-sm animate-fade-in-up space-y-4">
           <div className="flex justify-between items-center border-b border-slate-200 pb-3">
             <h3 className="text-sm font-black uppercase text-slate-900 flex items-center gap-2">
               <FlaskConical size={18} className="text-emerald-600" />
@@ -197,7 +197,7 @@ export default function Tests() {
           </div>
 
           <form onSubmit={handleSave} className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-3.5 bg-slate-50/70 p-4 rounded-xl border border-slate-200">
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-3.5 bg-slate-50/70 p-4 rounded-none border border-slate-200">
               <div className="md:col-span-6">
                 <label className="block text-[11px] font-bold uppercase text-slate-700 mb-1">
                   Test / Disease Profile Name * (बीमारी या जाँच का नाम)
@@ -207,7 +207,7 @@ export default function Tests() {
                   name="name" 
                   value={formData.name} 
                   onChange={handleInputChange} 
-                  className="w-full border border-slate-300 p-2.5 text-xs font-bold outline-none focus:border-emerald-600 focus:ring-2 focus:ring-emerald-100 rounded-lg bg-white transition-all" 
+                  className="w-full border border-slate-300 p-2.5 text-xs font-bold outline-none focus:border-emerald-600 rounded-none bg-white transition-all" 
                   placeholder="e.g. Widal Test, Dengue NS1, Thyroid Profile" 
                   required
                 />
@@ -219,7 +219,7 @@ export default function Tests() {
                   name="category" 
                   value={formData.category} 
                   onChange={handleInputChange} 
-                  className="w-full border border-slate-300 p-2.5 text-xs font-bold outline-none focus:border-emerald-600 focus:ring-2 focus:ring-emerald-100 rounded-lg bg-white cursor-pointer transition-all"
+                  className="w-full border border-slate-300 p-2.5 text-xs font-bold outline-none focus:border-emerald-600 rounded-none bg-white cursor-pointer transition-all"
                 >
                   <option value="Biochemistry">Biochemistry</option>
                   <option value="Haematology">Haematology</option>
@@ -237,7 +237,7 @@ export default function Tests() {
                   name="price" 
                   value={formData.price} 
                   onChange={handleInputChange} 
-                  className="w-full border border-slate-300 p-2.5 text-xs font-bold font-mono outline-none focus:border-emerald-600 focus:ring-2 focus:ring-emerald-100 rounded-lg bg-white text-emerald-800 transition-all" 
+                  className="w-full border border-slate-300 p-2.5 text-xs font-bold font-mono outline-none focus:border-emerald-600 rounded-none bg-white text-emerald-800 transition-all" 
                   placeholder="e.g. 250" 
                   required
                 />
@@ -245,7 +245,7 @@ export default function Tests() {
             </div>
 
             {/* Dynamic Parameter Rows & Limits */}
-            <div className="border border-slate-200 p-4 rounded-xl bg-white space-y-3">
+            <div className="border border-slate-200 p-4 rounded-none bg-white space-y-3">
               <div className="flex justify-between items-center border-b border-slate-100 pb-2.5">
                 <div>
                   <h4 className="text-xs font-black uppercase text-slate-900 tracking-wider flex items-center gap-1.5">
@@ -259,7 +259,7 @@ export default function Tests() {
                 <button
                   type="button"
                   onClick={handleAddParamRow}
-                  className="bg-emerald-50 text-emerald-800 hover:bg-emerald-100 border border-emerald-300 px-3 py-1 text-[11px] font-bold uppercase rounded-lg flex items-center gap-1 transition-colors cursor-pointer"
+                  className="bg-emerald-50 text-emerald-800 hover:bg-emerald-100 border border-emerald-300 px-3 py-1 text-[11px] font-bold uppercase rounded-none flex items-center gap-1 transition-colors cursor-pointer"
                 >
                   <Plus size={13} /> + Add Parameter
                 </button>
@@ -267,9 +267,9 @@ export default function Tests() {
 
               <div className="space-y-2.5 max-h-[280px] overflow-y-auto pr-1">
                 {formData.parameters.map((param, idx) => (
-                  <div key={idx} className="border border-slate-200 p-3 bg-slate-50/70 rounded-xl relative">
+                  <div key={idx} className="border border-slate-200 p-3 bg-slate-50/70 rounded-none relative">
                     <div className="flex justify-between items-center mb-2">
-                      <span className="text-[10px] font-black uppercase tracking-wider text-slate-700 bg-slate-200 px-2 py-0.5 rounded-md">
+                      <span className="text-[10px] font-black uppercase tracking-wider text-slate-700 bg-slate-200 px-2 py-0.5 rounded-none">
                         Parameter #{idx + 1}
                       </span>
                       {formData.parameters.length > 1 && (
@@ -294,7 +294,7 @@ export default function Tests() {
                           value={param.name}
                           onChange={(e) => handleParamChange(idx, 'name', e.target.value)}
                           placeholder="e.g. Blood Sugar (F), S. Typhi O"
-                          className="w-full border border-slate-300 p-2 text-xs font-bold outline-none bg-white focus:border-emerald-600 rounded-lg"
+                          className="w-full border border-slate-300 p-2 text-xs font-bold outline-none bg-white focus:border-emerald-600 rounded-none"
                           required
                         />
                       </div>
@@ -308,7 +308,7 @@ export default function Tests() {
                           value={param.unit}
                           onChange={(e) => handleParamChange(idx, 'unit', e.target.value)}
                           placeholder="mg/dL, %"
-                          className="w-full border border-slate-300 p-2 text-xs outline-none bg-white focus:border-emerald-600 rounded-lg font-mono"
+                          className="w-full border border-slate-300 p-2 text-xs outline-none bg-white focus:border-emerald-600 rounded-none font-mono"
                         />
                       </div>
 
@@ -321,7 +321,7 @@ export default function Tests() {
                           value={param.normal_text}
                           onChange={(e) => handleParamChange(idx, 'normal_text', e.target.value)}
                           placeholder="e.g. 70 - 110, Negative, < 1:80"
-                          className="w-full border border-slate-300 p-2 text-xs outline-none bg-white focus:border-emerald-600 rounded-lg font-mono font-bold text-blue-800"
+                          className="w-full border border-slate-300 p-2 text-xs outline-none bg-white focus:border-emerald-600 rounded-none font-mono font-bold text-blue-800"
                         />
                       </div>
                     </div>
@@ -334,13 +334,13 @@ export default function Tests() {
               <button
                 type="button"
                 onClick={closeForm}
-                className="bg-slate-100 hover:bg-slate-200 text-slate-700 px-5 py-2 text-xs font-bold uppercase rounded-lg border border-slate-200 transition-colors cursor-pointer"
+                className="bg-slate-100 hover:bg-slate-200 text-slate-700 px-5 py-2 text-xs font-bold uppercase rounded-none border border-slate-200 transition-colors cursor-pointer"
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                className="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2 text-xs font-bold uppercase rounded-lg shadow-sm flex items-center gap-1.5 transition-colors cursor-pointer"
+                className="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2 text-xs font-bold uppercase rounded-none shadow-xs flex items-center gap-1.5 transition-colors cursor-pointer"
               >
                 <Save size={14} /> {editingId ? 'Update Test' : 'Save Test to Catalog'}
               </button>
@@ -349,17 +349,17 @@ export default function Tests() {
         </div>
       )}
 
-      <div className="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
+      <div className="bg-white rounded-none border border-slate-300 shadow-sm overflow-hidden">
         <div className="p-3.5 border-b border-slate-100 flex flex-col sm:flex-row gap-3 justify-between sm:items-center bg-slate-50/80">
            <div className="flex flex-wrap gap-2">
-             <form onSubmit={handleSearchSubmit} className="flex items-center border border-slate-200 bg-white px-2.5 rounded-xl w-full sm:w-auto shadow-xs focus-within:border-emerald-600 transition-colors">
+             <form onSubmit={handleSearchSubmit} className="flex items-center border border-slate-300 bg-white px-2.5 rounded-none w-full sm:w-auto shadow-xs focus-within:border-emerald-600 transition-colors">
                <Search size={16} className="text-slate-400 shrink-0" />
-               <input type="text" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="Search Tests code, name..." className="p-2 text-xs font-medium outline-none w-full sm:w-52 bg-transparent" />
+               <input type="text" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="Search Tests code, name..." className="p-2 text-xs font-medium outline-none w-full sm:w-52 bg-transparent rounded-none" />
                <button type="submit" className="text-xs uppercase font-bold text-emerald-600 hover:text-emerald-800 px-2 cursor-pointer shrink-0">Search</button>
              </form>
-             <div className="flex items-center border border-slate-200 bg-white px-2.5 rounded-xl shadow-xs">
+             <div className="flex items-center border border-slate-300 bg-white px-2.5 rounded-none shadow-xs">
                <Filter size={14} className="text-slate-400 mr-1.5" />
-               <select value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)} className="text-xs uppercase font-bold text-slate-700 bg-transparent outline-none py-2 cursor-pointer">
+               <select value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)} className="text-xs uppercase font-bold text-slate-700 bg-transparent outline-none py-2 cursor-pointer rounded-none">
                  <option value="All">All Categories</option>
                  <option value="Haematology">Haematology</option>
                  <option value="Biochemistry">Biochemistry</option>
@@ -369,7 +369,7 @@ export default function Tests() {
                </select>
              </div>
            </div>
-           <span className="text-[11px] font-bold uppercase text-slate-600 bg-slate-100 px-3 py-1 rounded-full border border-slate-200 self-start sm:self-auto">
+           <span className="text-[11px] font-bold uppercase text-slate-600 bg-slate-100 px-3 py-1 rounded-none border border-slate-200 self-start sm:self-auto">
              Total: {tests.length} Profiles
            </span>
         </div>
@@ -401,7 +401,7 @@ export default function Tests() {
                   <React.Fragment key={t.id}>
                     <tr className="hover:bg-purple-50/40 transition-colors">
                       <td className="px-3.5 py-3 border-r border-slate-100 font-mono font-bold text-slate-700 text-center whitespace-nowrap">
-                        <span className="bg-slate-100 px-2 py-0.5 rounded-md border border-slate-200">{t.id}</span>
+                        <span className="bg-slate-100 px-2 py-0.5 rounded-none border border-slate-200">{t.id}</span>
                       </td>
                       <td className="px-3.5 py-3 border-r border-slate-100 font-bold">
                         <p className="text-slate-900 text-xs sm:text-sm">{t.name}</p>
@@ -415,7 +415,7 @@ export default function Tests() {
                       <td className="px-3.5 py-3 border-r border-slate-100 text-center hidden md:table-cell whitespace-nowrap">
                         <button
                           onClick={() => setExpandedTestId(isExpanded ? null : t.id)}
-                          className="inline-flex items-center gap-1 text-[10px] font-bold text-blue-700 hover:text-blue-900 bg-blue-50 border border-blue-200 px-2 py-0.5 rounded-full cursor-pointer transition-colors"
+                          className="inline-flex items-center gap-1 text-[10px] font-bold text-blue-700 hover:text-blue-900 bg-blue-50 border border-blue-200 px-2 py-0.5 rounded-none cursor-pointer transition-colors"
                         >
                           <span>{paramCount} items</span>
                           {isExpanded ? <ChevronUp size={11} /> : <ChevronDown size={11} />}
@@ -424,8 +424,8 @@ export default function Tests() {
                       <td className="px-3.5 py-3 border-r border-slate-100 text-right font-black text-emerald-700 font-mono text-sm whitespace-nowrap">₹{t.price}</td>
                       <td className="px-3.5 py-3 text-center whitespace-nowrap">
                         <div className="flex justify-center gap-1.5">
-                           <button onClick={() => handleEdit(t)} className="p-1.5 rounded-lg bg-blue-50 text-blue-700 hover:bg-blue-600 hover:text-white transition-all cursor-pointer shadow-xs active:scale-95" title="Edit"><Edit2 size={13} /></button>
-                           <button onClick={() => handleDelete(t.id)} className="p-1.5 rounded-lg bg-rose-50 text-rose-600 hover:bg-rose-600 hover:text-white transition-all cursor-pointer shadow-xs active:scale-95" title="Delete"><Trash2 size={13} /></button>
+                           <button onClick={() => handleEdit(t)} className="p-1.5 rounded-none bg-blue-50 text-blue-700 hover:bg-blue-600 hover:text-white transition-all cursor-pointer shadow-xs" title="Edit"><Edit2 size={13} /></button>
+                           <button onClick={() => handleDelete(t.id)} className="p-1.5 rounded-none bg-rose-50 text-rose-600 hover:bg-rose-600 hover:text-white transition-all cursor-pointer shadow-xs" title="Delete"><Trash2 size={13} /></button>
                         </div>
                       </td>
                     </tr>
@@ -434,7 +434,7 @@ export default function Tests() {
                     {isExpanded && (
                       <tr>
                         <td colSpan="6" className="bg-slate-50/80 p-4 border-b border-slate-200">
-                          <div className="rounded-xl border border-blue-200/80 bg-white p-3.5 shadow-xs">
+                          <div className="rounded-none border border-blue-200/80 bg-white p-3.5 shadow-xs">
                             <div className="flex justify-between items-center mb-2.5 pb-2 border-b border-slate-100">
                               <span className="text-[11px] font-black uppercase text-blue-900 flex items-center gap-1.5">
                                 <Sliders size={13} className="text-blue-600" /> Parameters & Reference Ranges: {t.name}
@@ -448,7 +448,7 @@ export default function Tests() {
                             </div>
                             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5">
                               {(t.parameters || []).map((p, idx) => (
-                                <div key={idx} className="rounded-lg border border-slate-200 p-2.5 bg-slate-50 text-xs">
+                                <div key={idx} className="rounded-none border border-slate-200 p-2.5 bg-slate-50 text-xs">
                                   <p className="font-extrabold text-slate-800 text-[11px]">{p.name}</p>
                                   <div className="flex justify-between items-center mt-1 text-[10px] text-slate-600">
                                     <span>Unit: <b className="font-mono text-slate-700">{p.unit || '-'}</b></span>

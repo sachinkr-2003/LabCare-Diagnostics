@@ -55,7 +55,7 @@ export default function Header() {
     >
       {/* Left: tagline */}
       <div className="hidden md:flex items-center gap-2.5">
-        <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-100">
+        <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-none bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200">
           <Zap size={11} className="text-blue-500" />
           <span className="text-[10px] font-bold text-blue-600 uppercase tracking-wider">Accurate Reports</span>
         </div>
@@ -65,15 +65,16 @@ export default function Header() {
         <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">Trusted Diagnostics</span>
       </div>
 
-      {/* Mobile: logo text */}
-      <div className="md:hidden pl-12 text-sm font-black text-slate-800 uppercase tracking-wider">
-        <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">Lab</span>
-        <span>Care</span>
+      {/* Mobile: logo */}
+      <div className="md:hidden pl-12 flex items-center gap-1.5 text-xs font-black text-slate-800 uppercase tracking-wider">
+        <img src="/apex-logo.jpg" alt="Apex Logo" className="w-6 h-6 rounded-full border border-slate-300 bg-white object-contain" />
+        <span className="text-[#0b1e3b]">APEX</span>
+        <span className="text-blue-600">DIAGNOSTIC</span>
       </div>
 
       <div className="flex items-center gap-2 ml-auto">
         {/* Date/Time pill */}
-        <div className="flex items-center gap-2 bg-gradient-to-r from-slate-50 to-blue-50/50 border border-slate-200/80 rounded-xl px-3 py-1.5 hover:border-blue-200 transition-colors shadow-sm">
+        <div className="flex items-center gap-2 bg-gradient-to-r from-slate-50 to-blue-50/50 border border-slate-300 rounded-none px-3 py-1.5 hover:border-blue-300 transition-colors shadow-xs">
           <Calendar size={12} className="text-blue-500 shrink-0" />
           <div>
             <p className="font-bold text-slate-700 text-[10px] uppercase tracking-wide leading-tight">{currentDateTime.date}</p>
@@ -87,13 +88,13 @@ export default function Header() {
         {/* Profile */}
         <Link
           to="/profile"
-          className="flex items-center gap-2.5 px-2.5 py-1.5 rounded-xl hover:bg-blue-50/80 transition-all group border border-transparent hover:border-blue-100"
+          className="flex items-center gap-2.5 px-2.5 py-1.5 rounded-none hover:bg-blue-50/80 transition-all group border border-transparent hover:border-blue-200"
         >
           <div className="relative">
-            <div className="w-8 h-8 rounded-full ring-2 ring-blue-500/25 group-hover:ring-blue-500/50 transition-all overflow-hidden shadow-sm">
+            <div className="w-8 h-8 rounded-none border border-slate-300 group-hover:border-blue-500 transition-all overflow-hidden shadow-xs">
               <img src={avatar} alt="Admin" className="w-full h-full object-cover" onError={e => { e.target.src = defaultAvatar; }} />
             </div>
-            <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-emerald-400 rounded-full border-2 border-white shadow-sm" />
+            <span className="absolute -bottom-0.5 -right-0.5 w-2 h-2 bg-emerald-500 rounded-none border border-white" />
           </div>
           <div className="hidden sm:block">
             <p className="font-black text-slate-800 text-[11px] uppercase tracking-wide group-hover:text-blue-600 transition-colors leading-tight">{adminName}</p>

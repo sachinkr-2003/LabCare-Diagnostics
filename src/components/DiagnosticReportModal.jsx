@@ -221,7 +221,7 @@ export default function DiagnosticReportModal({ report, lab, onClose }) {
     <div id="report-print-portal">
       <div 
         onClick={onClose}
-        className="print-modal-backdrop fixed inset-0 z-[9999] bg-black/85 backdrop-blur-sm flex items-center justify-center p-2 sm:p-4 overflow-y-auto"
+        className="print-modal-backdrop fixed inset-0 z-[9999] bg-black/90 flex items-center justify-center p-2 sm:p-4 overflow-y-auto"
       >
         <div 
           onClick={(e) => e.stopPropagation()}
@@ -251,14 +251,14 @@ export default function DiagnosticReportModal({ report, lab, onClose }) {
             <div className="flex items-center gap-2">
               <button
                 onClick={handlePrint}
-                className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-4 py-1.5 text-xs font-bold uppercase rounded-sm flex items-center gap-1.5 transition-all cursor-pointer shadow-md border border-blue-400/30"
+                className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-4 py-1.5 text-xs font-bold uppercase rounded-none flex items-center gap-1.5 transition-all cursor-pointer shadow-xs border border-blue-400/30"
                 title="Print to printer or save as PDF"
               >
                 <Printer size={15} /> Print / Save PDF
               </button>
               <button
                 onClick={onClose}
-                className="bg-white/10 hover:bg-red-600 text-white px-3 py-1.5 text-xs font-bold uppercase rounded-sm flex items-center gap-1 transition-all cursor-pointer border border-white/20"
+                className="bg-white/10 hover:bg-red-600 text-white px-3 py-1.5 text-xs font-bold uppercase rounded-none flex items-center gap-1 transition-all cursor-pointer border border-white/20"
                 title="Close window (Esc)"
               >
                 <X size={15} /> Close
@@ -277,29 +277,12 @@ export default function DiagnosticReportModal({ report, lab, onClose }) {
             >
               {/* ================= BACKGROUND CENTER WATERMARK ================= */}
               <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none z-0 overflow-hidden">
-                <div className="flex flex-col items-center justify-center -rotate-25 opacity-[0.05] print:opacity-[0.06] text-center w-full max-w-[620px] px-4">
-                  {/* ADC Crest Ring Motif */}
-                  <div className="w-72 h-72 rounded-full border-6 border-dashed border-[#0b1e3b] p-3 flex items-center justify-center mb-3">
-                    <div className="w-full h-full rounded-full border-4 border-[#0284c7] flex flex-col items-center justify-center p-4">
-                      <span className="text-4xl font-black text-[#0b1e3b] tracking-widest font-serif">ADC</span>
-                      <span className="text-[10px] font-black tracking-widest text-[#0b1e3b] uppercase mt-1">
-                        APEX DIAGNOSTIC CENTRE
-                      </span>
-                      <span className="text-[8px] font-bold text-slate-600 uppercase mt-0.5">
-                        मीरगंज रोड भोरे
-                      </span>
-                    </div>
-                  </div>
-
-                  <span 
-                    className="text-4xl sm:text-5xl font-black italic tracking-wider text-[#0b1e3b] uppercase leading-none whitespace-nowrap"
-                    style={{ fontFamily: '"Arial Black", Impact, sans-serif' }}
-                  >
-                    {labName}
-                  </span>
-                  <span className="text-xs font-extrabold tracking-[0.25em] text-[#1d4ed8] uppercase mt-1.5">
-                    DIAGNOSTIC & CLINICAL RESEARCH CENTRE
-                  </span>
+                <div className="flex flex-col items-center justify-center opacity-[0.16] print:opacity-[0.18] text-center w-full px-4 mix-blend-multiply">
+                  <img 
+                    src="/apex-logo.jpg" 
+                    alt="APEX DIAGNOSTIC CENTRE Watermark" 
+                    className="w-96 h-96 sm:w-[440px] sm:h-[440px] object-contain drop-shadow-xs rounded-full"
+                  />
                 </div>
               </div>
 
@@ -329,15 +312,13 @@ export default function DiagnosticReportModal({ report, lab, onClose }) {
 
                   {/* Main Banner: Logo + Exact Address & Phones */}
                   <div className="flex items-center justify-between gap-3 pt-2">
-                    {/* Left: Authentic ADC Circular Emblem (From user slip) */}
+                    {/* Left: Authentic APEX DIAGNOSTIC CENTRE Logo Emblem */}
                     <div className="relative shrink-0 flex items-center justify-center">
-                      <div className="w-18 h-18 sm:w-20 sm:h-20 rounded-full border-2 border-[#b91c1c] p-1 flex items-center justify-center bg-white shadow-xs relative">
-                        <div className="w-full h-full rounded-full border border-[#0b1e3b] flex flex-col items-center justify-center bg-gradient-to-br from-amber-50/50 via-white to-red-50/30 text-center">
-                          <span className="text-[7px] font-black text-[#b91c1c] uppercase tracking-tighter leading-none">APEX</span>
-                          <span className="text-base sm:text-lg font-black text-[#0b1e3b] tracking-wider leading-none font-serif">ADC</span>
-                          <span className="text-[6.5px] font-bold text-slate-600 uppercase tracking-tighter leading-none mt-0.5">BHORE</span>
-                        </div>
-                      </div>
+                      <img 
+                        src="/apex-logo.jpg" 
+                        alt="APEX DIAGNOSTIC CENTRE Logo" 
+                        className="w-22 h-22 sm:w-24 sm:h-24 object-contain shadow-xs rounded-full border-2 border-slate-900 bg-white"
+                      />
                     </div>
 
                     {/* Center: Lab Name + Exact Hindi & English Address */}
@@ -607,13 +588,13 @@ export default function DiagnosticReportModal({ report, lab, onClose }) {
             <div className="flex gap-2">
               <button 
                 onClick={onClose}
-                className="bg-slate-300 hover:bg-slate-400 text-slate-800 px-4 py-1.5 text-xs font-bold uppercase rounded-sm transition-colors cursor-pointer"
+                className="bg-slate-300 hover:bg-slate-400 text-slate-800 px-4 py-1.5 text-xs font-bold uppercase rounded-none transition-colors cursor-pointer"
               >
                 Cancel / Close
               </button>
               <button 
                 onClick={handlePrint}
-                className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-5 py-1.5 text-xs font-bold uppercase rounded-sm flex items-center gap-1.5 transition-all cursor-pointer shadow-sm"
+                className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-5 py-1.5 text-xs font-bold uppercase rounded-none flex items-center gap-1.5 transition-all cursor-pointer shadow-xs"
               >
                 <Printer size={14} /> Print Report
               </button>
